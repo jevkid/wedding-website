@@ -1,0 +1,8 @@
+.app__navigation--list {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+a {
+  text-decoration: underline;
+}

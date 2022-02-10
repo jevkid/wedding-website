@@ -1,0 +1,10 @@
+node_modules
+
+.cache
+.vercel
+.output
+.env
+tailwind.css
+
+public/build
+api/_build
