@@ -4,7 +4,6 @@ import { searchGuest } from '~/guests';
 export let action = async ({ request }: any) => {
   let formData = await request.formData();
   let guestName = formData.get('guestName');
-
   let errors: { name?: boolean; slug?: boolean } = {};
 
   if (!guestName) errors.name = true;
@@ -25,8 +24,8 @@ export default function RSVPIndex() {
   return (
     <Form method="post">
       <p>
-        <label htmlFor="">
-          Guest name: {errors?.title && <em>Name is required</em>}{' '}
+        <label htmlFor="guestName">
+          Guest name: {errors?.name && <em>Name is required</em>}{' '}
           <input
             className="input"
             type="text"

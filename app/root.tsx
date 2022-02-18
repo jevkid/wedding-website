@@ -30,25 +30,15 @@ export const meta: MetaFunction = () => {
 function Layout({ children }: LayoutProps) {
   return (
     <div className="app__container">
-      <header className="app__container">
-        <nav aria-label="Main navigation" className="app__navigation">
-          <ul className="app__navigation--list">
-            <li>
-              <Link to="/">Home</Link>
-            </li>
-            <li>
-              <Link to="/rsvp">RSVP</Link>
-            </li>
-            <li>
-              <Link to="/admin">Admin</Link>
-            </li>
-          </ul>
-        </nav>
-      </header>
-      <div className="app__main">
-        <div className="app__main-content">{children}</div>
+      <div className="app__navigation--list">
+        <Link to="/">Home</Link>
+        <Link to="/rsvp">RSVP</Link>
+        <Link to="/travel">Travel</Link>
+        <Link to="/travel">Things to do</Link>
+        <Link to="/travel">Schedule</Link>
+        <Link to="/travel">Registry</Link>
       </div>
-      <footer className="app__footer"></footer>
+      <div className="app__main">{children}</div>
     </div>
   );
 }

@@ -41,3 +41,22 @@ export async function searchGuest(guestName: string) {
   console.log(id, guest);
   return {id, guest};
 }
+
+export async function updateGuest(guestId: string, rsvp: string) {
+  await prisma.$connect();
+
+  console.log('updating guest id', guestId);
+
+  await prisma.guests.update({
+    where: {
+      id: guestId
+    },
+    data: {
+      rsvp: rsvp
+    }
+  });
+
+  prisma.$disconnect();
+
+  return getSingleGuest(guestId);
+}
