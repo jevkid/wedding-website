@@ -39,30 +39,27 @@ export default function NewGuest() {
     <Form method="post">
       <h1>{guest?.guest_name}</h1>
       <input type="hidden" name="guestId" value={guest.id} />
-      <h3>RSVP</h3>
-      <div className="checkboxContainer">
-        <label>
-          Attending
-          <input
-            type="radio"
-            name="rsvp"
-            value="yes"
-            defaultChecked={guest.rsvp === 'yes'}
-          />
-        </label>
-        <label>
-          Unable to attend
-          <input
-            type="radio"
-            name="rsvp"
-            value="no"
-            defaultChecked={guest.rsvp === 'no'}
-          />
-        </label>
+      <div className="checkbox__container">
+        <input
+          id="yes"
+          type="radio"
+          name="rsvp"
+          value="yes"
+          defaultChecked={guest.rsvp === 'yes'}
+        />
+        <label htmlFor="yes">Attending</label>
+        <input
+          id="no"
+          type="radio"
+          name="rsvp"
+          value="no"
+          defaultChecked={guest.rsvp === 'no'}
+        />
+        <label htmlFor="no">Unable to attend</label>
       </div>
       <p>
         <button type="submit">
-          {transition.submission ? 'Searching...' : 'Enter'}
+          {transition.submission ? 'Searching...' : 'Continue'}
         </button>
       </p>
     </Form>

@@ -24,19 +24,22 @@ export default function RSVPIndex() {
   return (
     <Form method="post">
       <p>
-        <label htmlFor="guestName">
-          Guest name: {errors?.name && <em>Name is required</em>}{' '}
-          <input
-            className="input"
-            type="text"
-            name="guestName"
-            id="guestNameInput"
-          />
-        </label>
+        If you're responding for you and a guest (or your family), you'll be
+        able to RSVP for your entire group.
       </p>
+      <label htmlFor="guestName">
+        <input
+          className="input"
+          type="text"
+          name="guestName"
+          id="guestNameInput"
+          placeholder="Full name"
+        />
+        {errors?.name && <em>Name is required</em>}{' '}
+      </label>
       <p>
         <button type="submit">
-          {transition.submission ? 'Searching...' : 'Enter'}
+          {transition.submission ? 'Searching...' : 'Find your invitation'}
         </button>
       </p>
     </Form>

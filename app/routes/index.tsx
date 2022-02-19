@@ -1,7 +1,7 @@
 export default function Index() {
   return (
-    <div style={{ fontFamily: 'system-ui, sans-serif', lineHeight: '1.4' }}>
-      <h1>Welcome to M&S Wedding Page</h1>
+    <div className="app__main">
+      <div className="app__main--hero"></div>
     </div>
   );
 }

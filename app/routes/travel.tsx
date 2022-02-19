@@ -1,5 +1,5 @@
 import { Outlet } from 'remix';
-import styles from '../styles/admin.css';
+import styles from '../styles/travel.css';
 
 export function links() {
   return [{ rel: 'stylesheet', href: styles }];

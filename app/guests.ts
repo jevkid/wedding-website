@@ -33,12 +33,10 @@ export async function searchGuest(guestName: string) {
       guest_name: guestName
     }
   });
-  console.log('guestName', guestName);
-  console.log('foundName', foundName);
 
   let id = foundName?.id;
   let guest = foundName?.guest_name;
-  console.log(id, guest);
+
   return {id, guest};
 }
 

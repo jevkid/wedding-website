@@ -9,7 +9,8 @@ import {
   useCatch,
 } from 'remix';
 import type { MetaFunction } from 'remix';
-import mainStyles from './tailwind.css';
+import { date, venue } from './constants';
+import { format, formatDistanceStrict } from 'date-fns';
 import styles from './styles/index.css';
 
 interface LayoutProps {
@@ -18,8 +19,17 @@ interface LayoutProps {
 
 export function links() {
   return [
-    { rel: 'stylesheet', href: mainStyles },
     { rel: 'stylesheet', href: styles },
+    { rel: 'preconnect', href: 'https://fonts.googleapis.com' },
+    {
+      rel: 'preconnect',
+      href: 'https://fonts.googleapis.com',
+      crossOriginIsolated: true,
+    },
+    {
+      rel: 'stylesheet',
+      href: 'https://fonts.googleapis.com/css2?family=IM+Fell+Double+Pica:ital@0;1&family=Poppins:ital,wght@0,300;0,400;0,500;1,300&display=swap',
+    },
   ];
 }
 
@@ -30,15 +40,37 @@ export const meta: MetaFunction = () => {
 function Layout({ children }: LayoutProps) {
   return (
     <div className="app__container">
-      <div className="app__navigation--list">
-        <Link to="/">Home</Link>
-        <Link to="/rsvp">RSVP</Link>
-        <Link to="/travel">Travel</Link>
-        <Link to="/travel">Things to do</Link>
-        <Link to="/travel">Schedule</Link>
-        <Link to="/travel">Registry</Link>
+      <div className="app__titleContainer">
+        <h1 className="app__titleContainer--title">Megan &amp; Simon</h1>
+        <h3 className="app__titleContainer--subtitle">
+          {format(date, 'MMMM do, yyyy')} &middot; {venue.city}, {venue.country}
+        </h3>
+        <h3 className="app__titleContainer--subtitle">
+          {formatDistanceStrict(date, new Date(), { unit: 'day' })} to go
+        </h3>
       </div>
-      <div className="app__main">{children}</div>
+      <div className="app__navigation--list">
+        <Link className="navLink" to="/">
+          Home
+        </Link>
+        <Link className="navLink" to="/rsvp">
+          RSVP
+        </Link>
+        <Link className="navLink" to="/travel">
+          Travel
+        </Link>
+        <Link className="navLink" to="/travel">
+          Things to do
+        </Link>
+        <Link className="navLink" to="/travel">
+          Schedule
+        </Link>
+        <Link className="navLink" to="/travel">
+          Registry
+        </Link>
+      </div>
+      <hr className="divider" />
+      {children}
     </div>
   );
 }

@@ -9,9 +9,11 @@ datasource db {
 }
 
 model guests {
-  id          String @id @default(dbgenerated()) @map("_id") @db.ObjectId
+  id          String  @id @default(dbgenerated()) @map("_id") @db.ObjectId
   dietary_req String
+  group       Boolean
   guest_name  String
   meal_choice String
+  plusOne     String?
   rsvp        String
 }

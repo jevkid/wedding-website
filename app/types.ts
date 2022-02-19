@@ -4,4 +4,6 @@ export interface GuestsModel {
   meal_choice: string;
   guest_name: string;
   rsvp: string;
+  group: boolean;
+  plusOne?: string;
 }
