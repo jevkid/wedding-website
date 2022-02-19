@@ -1,6 +1,4 @@
-import { Outlet, useLoaderData } from 'remix';
-import invariant from 'tiny-invariant';
-import { getSingleGuest } from '~/guests';
+import { Outlet } from 'remix';
 import styles from '../styles/rsvp.css';
 
 export function links() {

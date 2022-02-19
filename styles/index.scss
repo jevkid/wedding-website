@@ -121,4 +121,17 @@ button {
   padding: 12px 24px;
   text-transform: uppercase;
   color: $black;
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+
+.error__container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0px auto;
+  max-width: calc(1248px);
+  padding: 42px 24px;
 }

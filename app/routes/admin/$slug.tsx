@@ -1,10 +1,10 @@
 import { useLoaderData } from 'remix';
 import invariant from 'tiny-invariant';
-import { getSingleGuest } from '~/guests';
+import { getGuestById } from '~/guests';
 
 export let loader = async ({ params }: any) => {
   invariant(params.slug, 'expected params.slug');
-  return getSingleGuest(params.slug);
+  return getGuestById(params.slug);
 };
 
 export default function GuestSlug() {

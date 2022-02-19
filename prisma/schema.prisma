@@ -10,10 +10,21 @@ datasource db {
 
 model guests {
   id          String  @id @default(dbgenerated()) @map("_id") @db.ObjectId
+  accom_req   String
   dietary_req String
   group       Boolean
   guest_name  String
+  invite_code String
   meal_choice String
-  plusOne     String?
+  notes       String
+  plus_one    String?
   rsvp        String
+}
+
+model invites {
+  id            String @id @default(dbgenerated()) @map("_id") @db.ObjectId
+  accommodation String
+  code          String
+  guests        Json[]
+  notes         String
 }

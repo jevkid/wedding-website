@@ -6,17 +6,18 @@ import {
   useTransition,
   useLoaderData,
 } from 'remix';
-import { getSingleGuest, updateGuest } from '~/guests';
+import { getGuestById, updateGuest } from '~/guests';
 
 export let loader = async ({ params }: any) => {
   invariant(params.id, 'expected params.id');
-  return getSingleGuest(params.id);
+  return getGuestById(params.id);
 };
 
 export let action = async ({ request }: any) => {
   let formData = await request.formData();
   let guestId = formData.get('guestId');
   let rsvp = formData.get('rsvp');
+  // dietary_req, meal_choice, accom_req, notes
 
   let errors: { name?: boolean; slug?: boolean } = {};
 
@@ -35,6 +36,7 @@ export default function NewGuest() {
   const guest = useLoaderData();
   let errors = useActionData();
   let transition = useTransition();
+  let formState = 'rsvp';
   return (
     <Form method="post">
       <h1>{guest?.guest_name}</h1>

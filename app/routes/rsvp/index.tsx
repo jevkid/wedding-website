@@ -1,18 +1,23 @@
-import { Link, redirect, Form, useActionData, useTransition } from 'remix';
-import { searchGuest } from '~/guests';
+import { redirect, Form, useActionData, useTransition } from 'remix';
+import { findGuestByName, findGuestByCode } from '~/guests';
 
 export let action = async ({ request }: any) => {
   let formData = await request.formData();
   let guestName = formData.get('guestName');
+  let inviteCode = formData.get('inviteCode');
   let errors: { name?: boolean; slug?: boolean } = {};
 
-  if (!guestName) errors.name = true;
+  if (!inviteCode && !guestName) {
+    errors.name = true;
+  }
 
   if (Object.keys(errors).length) {
     return errors;
   }
 
-  const { id } = await searchGuest(guestName);
+  const { id } = inviteCode
+    ? await findGuestByCode(inviteCode)
+    : await findGuestByName(guestName);
 
   return redirect(`/rsvp/${id}`);
 };
@@ -25,23 +30,35 @@ export default function RSVPIndex() {
     <Form method="post">
       <p>
         If you're responding for you and a guest (or your family), you'll be
-        able to RSVP for your entire group.
+        able to RSVP for each person on your invitation.
       </p>
-      <label htmlFor="guestName">
-        <input
-          className="input"
-          type="text"
-          name="guestName"
-          id="guestNameInput"
-          placeholder="Full name"
-        />
-        {errors?.name && <em>Name is required</em>}{' '}
-      </label>
-      <p>
+      <div className="rsvp__invites">
+        <label htmlFor="guestName">
+          <input
+            className="input"
+            type="text"
+            name="guestName"
+            id="guestNameInput"
+            placeholder="Full name"
+          />
+        </label>
+        <p className="input-divider">or</p>
+        <label htmlFor="inviteCode">
+          <input
+            className="input"
+            type="text"
+            name="inviteCode"
+            id="inviteCodeInput"
+            placeholder="Invite code"
+          />
+        </label>
+      </div>
+      {errors?.name && <em>Name or invite code is required</em>}{' '}
+      <div className="button__container">
         <button type="submit">
           {transition.submission ? 'Searching...' : 'Find your invitation'}
         </button>
-      </p>
+      </div>
     </Form>
   );
 }

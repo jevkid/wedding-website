@@ -1,4 +1,4 @@
-import { getGuests } from '~/guests';
+import { getAllGuests } from '~/guests';
 import { Outlet, useLoaderData } from 'remix';
 import { GuestsModel } from '~/types';
 import styles from '../styles/admin.css';
@@ -8,7 +8,7 @@ export function links() {
 }
 
 export let loader = () => {
-  return getGuests();
+  return getAllGuests();
 };
 
 export default function Admin() {
