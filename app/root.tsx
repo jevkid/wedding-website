@@ -22,11 +22,6 @@ export function links() {
     { rel: 'stylesheet', href: styles },
     { rel: 'preconnect', href: 'https://fonts.googleapis.com' },
     {
-      rel: 'preconnect',
-      href: 'https://fonts.googleapis.com',
-      crossOriginIsolated: true,
-    },
-    {
       rel: 'stylesheet',
       href: 'https://fonts.googleapis.com/css2?family=IM+Fell+Double+Pica:ital@0;1&family=Poppins:ital,wght@0,300;0,400;0,500;1,300&display=swap',
     },

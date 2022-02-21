@@ -14,16 +14,24 @@ export async function getAllGuests() {
 
 export async function getGuestById(id: string) {
   await prisma.$connect();
-
+  let plusOne;
   const guest = await prisma.guests.findFirst({
     where: {
       id: id
     }
   });
 
+  if (guest?.group && guest.plus_one) {
+    plusOne = await prisma.guests.findFirst({
+      where: {
+        guest_name: guest.plus_one
+      }
+    });
+  }
+
   prisma.$disconnect();
 
-  return guest;
+  return { guest, plusOne };
 }
 
 export async function findGuestByName(guestName: string) {
@@ -37,11 +45,10 @@ export async function findGuestByName(guestName: string) {
 
   let id = foundGuest?.id;
   let guest = foundGuest?.guest_name;
-  let plus_one = foundGuest?.plus_one;
 
   prisma.$disconnect();
 
-  return {id, guest, plus_one};
+  return {id, guest};
 }
 
 export async function findGuestByCode(inviteCode: string) {
@@ -55,11 +62,10 @@ export async function findGuestByCode(inviteCode: string) {
 
   let id = foundGuest?.id;
   let guest = foundGuest?.guest_name;
-  let plus_one = foundGuest?.plus_one;
 
   prisma.$disconnect();
 
-  return {id, guest, plus_one};
+  return {id, guest};
 }
 
 export async function updateGuest(guestId: string, rsvp: string) {

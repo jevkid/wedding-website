@@ -60,9 +60,9 @@ html, body {
   }
 }
 
-hr {
+hr.divider {
   border-bottom: 1px solid $tertiary;
-  width: 100%;
+  width: 75%;
   margin-top: 12px;
   margin-bottom: 24px;
 }
