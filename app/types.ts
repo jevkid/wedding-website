@@ -2,6 +2,7 @@ export interface GuestsModel {
   id: string;
   invite_code: string;
   dietary_req: string;
+  dietary_req_other: string;
   meal_choice: string;
   guest_name: string;
   rsvp: string;

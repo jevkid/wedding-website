@@ -9,16 +9,17 @@ datasource db {
 }
 
 model guests {
-  id          String  @id @default(dbgenerated()) @map("_id") @db.ObjectId
-  accom_req   String
-  dietary_req String
-  group       Boolean
-  guest_name  String
-  invite_code String
-  meal_choice String
-  notes       String
-  plus_one    String?
-  rsvp        String
+  id                String  @id @default(dbgenerated()) @map("_id") @db.ObjectId
+  accom_req         String
+  dietary_req       String
+  dietary_req_other String
+  group             Boolean
+  guest_name        String
+  invite_code       String
+  meal_choice       String
+  notes             String
+  plus_one          String?
+  rsvp              String
 }
 
 model invites {

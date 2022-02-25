@@ -160,3 +160,15 @@ button {
 
 .diet__form--hidden, .checkbox__form--hidden, .meal__form--hidden, .accom__form--hidden, .notes__form--hidden {
   display: none; }
+
+.diet__form .text-input {
+  border: 2px solid #788371;
+  border-radius: 4px;
+  padding: 10px 20px;
+  margin: 8px;
+  background-color: rgba(255, 255, 255, 0.45); }
+
+.accom__form {
+  width: 750px; }
+  .accom__form .checkbox__container {
+    justify-content: center; }

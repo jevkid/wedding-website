@@ -8,6 +8,9 @@ import {
 } from 'remix';
 import { getGuestById, updateGuest } from '~/guests';
 import React from 'react';
+import { DietReqForm } from '~/components/dietRequirements';
+import { MealForm } from '~/components/meals';
+import { AccomForm } from '~/components/accommodation';
 
 export let loader = async ({ params }: any) => {
   invariant(params.id, 'expected params.id');
@@ -16,11 +19,23 @@ export let loader = async ({ params }: any) => {
 
 export let action = async ({ request }: any) => {
   let formData = await request.formData();
-  let guestId = formData.get('guestId');
-  let plusOneId = formData.get('plusOneId');
-  let rsvp = formData.get('rsvp');
-  let rsvpPlusOne = formData.get('rsvp-plus-one');
-  // dietary_req, meal_choice, accom_req, notes
+  // Guest data
+  const guestId = formData.get('guestId');
+  const rsvp = formData.get('rsvp');
+  const diet = formData.get('dietary-req');
+  const dietOther = formData.get('dietary-req-other');
+  const meal = formData.get('meal');
+  const accom = formData.get('accom');
+  const notes = formData.get('notes');
+
+  // Plus one data
+  const plusOneId = formData.get('plusOneId');
+  const rsvpPlusOne = formData.get('rsvp-plus-one');
+  const dietPlusOne = formData.get('dietary-req-plus-one');
+  const dietOtherPlusOne = formData.get('dietary-req-other-plus-one');
+  const mealPlusOne = formData.get('meal-plus-one');
+  const accomPlusOne = formData.get('accom-plus-one');
+  const notesPlusOne = formData.get('notes-plus-one');
 
   let errors: { name?: boolean; slug?: boolean } = {};
 
@@ -30,7 +45,19 @@ export let action = async ({ request }: any) => {
     return errors;
   }
 
-  await updateGuest(guestId, rsvp);
+  await updateGuest(guestId, rsvp, diet, dietOther, meal, accom, notes);
+
+  if (plusOneId) {
+    await updateGuest(
+      plusOneId,
+      rsvpPlusOne,
+      dietPlusOne,
+      dietOtherPlusOne,
+      mealPlusOne,
+      accomPlusOne,
+      notesPlusOne
+    );
+  }
 
   return redirect(`/rsvp/${guestId}/success`);
 };
@@ -39,6 +66,7 @@ export default function NewGuest() {
   const { guest, plusOne } = useLoaderData();
   let errors = useActionData();
   let transition = useTransition();
+  const lastStep = 4;
   const [step, setStep] = React.useState(0);
   const [guestAttending, setGuestAttending] = React.useState(
     guest.rsvp === 'yes' || false
@@ -107,105 +135,50 @@ export default function NewGuest() {
       {/* 1. Dietary restrictions */}
       <div className={`diet__form${step !== 1 ? '--hidden' : ''}`}>
         <h1 className="section-title">Dietary restrictions</h1>
-        {guestAttending && (
-          <p>
-            <h3 className="subtitle">{guest?.guest_name}</h3>
-            <div className="checkbox__container">
-              <input id="vegan" type="checkbox" name="vegan" value="vegan" />
-              <label htmlFor="vegan">Vegan</label>
-              <input
-                id="vegetarian"
-                type="checkbox"
-                name="vegetarian"
-                value="vegetarian"
-              />
-              <label htmlFor="vegetarian">Vegetarian</label>
-              <input
-                id="gluten-free"
-                type="checkbox"
-                name="gluten-free"
-                value="gluten-free"
-              />
-              <label htmlFor="gluten-free">Gluten free</label>
-              <input
-                id="dairy-free"
-                type="checkbox"
-                name="dairy-free"
-                value="dairy-free"
-              />
-              <label htmlFor="dairy-free">Dairy free</label>
-            </div>
-          </p>
-        )}
+        {guestAttending && <DietReqForm guestName={guest.guest_name} />}
         {plusOneAttending && (
-          <p>
-            <h3 className="subtitle">{plusOne?.guest_name}</h3>
-            <div className="checkbox__container">
-              <input
-                id="vegan-plus-one"
-                type="checkbox"
-                name="vegan-plus-one"
-                value="vegan"
-              />
-              <label htmlFor="vegan-plus-one">Vegan</label>
-              <input
-                id="vegetarian-plus-one"
-                type="checkbox"
-                name="vegetarian-plus-one"
-                value="vegetarian"
-              />
-              <label htmlFor="vegetarian-plus-one">Vegetarian</label>
-              <input
-                id="gluten-free-plus-one"
-                type="checkbox"
-                name="gluten-free-plus-one"
-                value="gluten-free"
-              />
-              <label htmlFor="gluten-free-plus-one">Gluten free</label>
-              <input
-                id="dairy-free-plus-one"
-                type="checkbox"
-                name="dairy-free-plus-one"
-                value="dairy-free"
-              />
-              <label htmlFor="dairy-free-plus-one">Dairy free</label>
-            </div>
-          </p>
+          <DietReqForm guestName={plusOne.guest_name} isPlusOne={true} />
         )}
       </div>
       {/* 2. Meal choice */}
       <div className={`meal__form${step !== 2 ? '--hidden' : ''}`}>
-        <h4>Meal selection</h4>
-        {guestAttending && <p>Show meal options</p>}
-        {plusOneAttending && <p>Show meal options</p>}
+        <h1 className="section-title">Meal selection</h1>
+        {guestAttending && <MealForm guestName={plusOne.guest_name} />}
+        {plusOneAttending && (
+          <MealForm guestName={plusOne.guest_name} isPlusOne={true} />
+        )}
       </div>
       {/* 3. Accommodation? */}
       <div className={`accom__form${step !== 3 ? '--hidden' : ''}`}>
-        <h4>Accommodation</h4>
-        {guestAttending && <p>Show accom options</p>}
-        {plusOneAttending && <p>Show accom options</p>}
+        <h1 className="section-title">Accommodation</h1>
+        {guestAttending && (
+          <AccomForm
+            guestName={guest.guest_name}
+            plusOneName={plusOne.guest_name}
+          />
+        )}
       </div>
       {/* 4. Notes */}
       <div className={`notes__form${step !== 4 ? '--hidden' : ''}`}>
-        <h4>Notes</h4>
-        <p>notes</p>
+        <h1 className="section-title">Anything else we should know?</h1>
+        <p></p>
         {plusOne && <p>notes</p>}
       </div>
-      {step === 4 && (
+      {step === lastStep && (
         <div className="button__container">
-          <button type="submit" disabled={step !== 4}>
+          <button type="submit" disabled={step !== lastStep}>
             {transition.submission ? 'Submitting...' : 'Submit'}
           </button>
         </div>
       )}
-      {step < 4 && (
+      {step < lastStep && (
         <div className="button__container">
           <button
             type="button"
             onClick={() => {
               if (!guestAttending && !plusOneAttending) {
-                setStep(4);
-              } else if (step < 4) {
+                setStep(lastStep);
+              } else if (step < lastStep) {
                 setStep(step + 1);
               } else {
                 return false;

@@ -89,3 +89,20 @@
     display: none;
   }
 }
+
+.diet__form {
+  .text-input {
+    border: 2px solid $sage;
+    border-radius: $borderRadius;
+    padding: 10px 20px;
+    margin: 8px;
+    background-color: rgba(255,255,255,0.45);
+  }
+}
+
+.accom__form {
+  width: 750px;
+  .checkbox__container {
+    justify-content: center;
+  }
+}

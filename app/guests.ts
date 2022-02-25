@@ -68,7 +68,7 @@ export async function findGuestByCode(inviteCode: string) {
   return {id, guest};
 }
 
-export async function updateGuest(guestId: string, rsvp: string) {
+export async function updateGuest(guestId: string, rsvp: string, diet_req?: string, diet_req_other?: string, meal_choice?: string, accom?: string, notes?: string) {
   await prisma.$connect();
 
   await prisma.guests.update({
@@ -76,7 +76,12 @@ export async function updateGuest(guestId: string, rsvp: string) {
       id: guestId
     },
     data: {
-      rsvp: rsvp
+      rsvp: rsvp,
+      dietary_req: diet_req || '',
+      dietary_req_other: diet_req_other || '',
+      accom_req: accom || '',
+      meal_choice: meal_choice || '',
+      notes: notes || '',
     }
   });
 
