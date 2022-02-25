@@ -1,17 +1,18 @@
 import * as React from 'react';
 
-export interface CheckboxProps {
+export interface CheckboxFieldProps {
   name: string;
   label: string;
   id: string;
-  defaultValue: string;
-  isChecked: boolean;
-  plusOne: boolean;
-  onChange?: (e: React.ChangeEvent, plusOne: string) => void;
+  inputValue: string;
+  isChecked?: boolean;
+  plusOne?: boolean;
+  handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-export const Checkbox = (props: CheckboxProps) => {
-  const { name, id, defaultValue, label, isChecked, plusOne, onChange } = props;
+export const CheckboxField = (props: CheckboxFieldProps) => {
+  const { name, id, inputValue, label, isChecked, plusOne, handleChange } =
+    props;
   const nameAsString = `${name}${plusOne ? '-plus-one' : ''}`;
   const idAsString = `${id}${plusOne ? '-plus-one' : ''}`;
   return (
@@ -20,12 +21,9 @@ export const Checkbox = (props: CheckboxProps) => {
         id={idAsString}
         type="checkbox"
         name={nameAsString}
-        value={defaultValue}
-        onChange={(e) => {
-          if (onChange) {
-            onChange(e, plusOne ? 'plusOne' : 'guest');
-          }
-        }}
+        value={inputValue}
+        defaultChecked={isChecked}
+        onChange={(e) => handleChange(e)}
       />
       <label htmlFor={idAsString}>{label}</label>
     </>

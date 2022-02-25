@@ -1,57 +1,39 @@
 import * as React from 'react';
+import { CheckboxField } from './formElements/checkbox';
 
 interface DietReqProps {
   guestName: string;
   isPlusOne?: boolean;
+  previousOptions?: string;
+  previousOptionsOther?: string;
 }
 
 export const DietReqForm = (props: DietReqProps) => {
-  const [guestDietOther, showGuestDietOther] = React.useState(false);
-  const [plusOneDietOther, showPlusOneDietOther] = React.useState(false);
-  const [guestDietOptions, setGuestDietOptions] = React.useState<string[]>([]);
-  const [plusOneDietOptions, setPlusOneDietOptions] = React.useState<string[]>(
-    []
+  const [guestDietOther, showGuestDietOther] = React.useState(
+    props.previousOptions && props.previousOptions.indexOf('other') > 0
   );
+  const [guestDietOptions, setGuestDietOptions] = React.useState<string[]>([]);
   const [guestDietOptionsString, setGuestDietOptionsString] =
-    React.useState<string>('');
-  const [plusOneDietOptionsString, setPlusOneDietOptionsString] =
-    React.useState<string>('');
+    React.useState<string>(props.previousOptions || '');
 
-  const handleDietOptions = (
-    e: React.ChangeEvent<HTMLInputElement>,
-    guestType: 'guest' | 'plusOne'
-  ) => {
+  const handleDietOptions = (e: React.ChangeEvent<HTMLInputElement>) => {
     let currentGuestOptions = guestDietOptions;
-    let currentPlusOneOptions = plusOneDietOptions;
-    if (e.target.value === 'other' && guestType === 'guest') {
+
+    if (e.target.value === 'other') {
       showGuestDietOther(!guestDietOther);
-    } else if (e.target.value === 'other' && guestType === 'plusOne') {
-      showPlusOneDietOther(!plusOneDietOther);
     }
-    if (guestType === 'guest') {
-      if (e.target.checked) {
-        currentGuestOptions.push(e.target.value);
-      } else {
-        currentGuestOptions = currentGuestOptions.filter(
-          (value) => value !== e.target.value
-        );
-      }
-      setGuestDietOptions(currentGuestOptions);
-      const optionsAsString = currentGuestOptions.join(',');
-      setGuestDietOptionsString(optionsAsString);
+
+    if (e.target.checked) {
+      currentGuestOptions.push(e.target.value);
+    } else {
+      currentGuestOptions = currentGuestOptions.filter(
+        (value) => value !== e.target.value
+      );
     }
-    if (guestType === 'plusOne') {
-      if (e.target.checked) {
-        currentPlusOneOptions.push(e.target.value);
-      } else {
-        currentPlusOneOptions = currentPlusOneOptions.filter(
-          (value) => value !== e.target.value
-        );
-      }
-      setPlusOneDietOptions(currentPlusOneOptions);
-      const optionsAsString = currentPlusOneOptions.join(',');
-      setPlusOneDietOptionsString(optionsAsString);
-    }
+    setGuestDietOptions(currentGuestOptions);
+
+    const optionsAsString = currentGuestOptions.join(',');
+    setGuestDietOptionsString(optionsAsString);
   };
 
   return (
@@ -61,71 +43,54 @@ export const DietReqForm = (props: DietReqProps) => {
         type="hidden"
         id={`dietary-req${props.isPlusOne ? '-plus-one' : ''}`}
         name={`dietary-req${props.isPlusOne ? '-plus-one' : ''}`}
-        defaultValue={
-          props.isPlusOne ? plusOneDietOptionsString : guestDietOptionsString
-        }
+        defaultValue={guestDietOptionsString}
       />
       <div className="checkbox__container">
-        <input
-          id={`vegan${props.isPlusOne ? '-plus-one' : ''}`}
-          type="checkbox"
-          name={`diet-req${props.isPlusOne ? '-plus-one' : ''}`}
-          value="vegan"
-          onChange={(e) =>
-            handleDietOptions(e, props.isPlusOne ? 'plusOne' : 'guest')
-          }
+        <CheckboxField
+          id="vegan"
+          label="Vegan"
+          name="diet-req"
+          inputValue="vegan"
+          plusOne={!!props.isPlusOne}
+          isChecked={guestDietOptionsString.indexOf('vegan') > 0}
+          handleChange={(e) => handleDietOptions(e)}
         />
-        <label htmlFor={`vegan${props.isPlusOne ? '-plus-one' : ''}`}>
-          Vegan
-        </label>
-        <input
-          id={`gluten-free${props.isPlusOne ? '-plus-one' : ''}`}
-          type="checkbox"
-          name={`diet-req${props.isPlusOne ? '-plus-one' : ''}`}
-          value="gluten-free"
-          onChange={(e) =>
-            handleDietOptions(e, props.isPlusOne ? 'plusOne' : 'guest')
-          }
+        <CheckboxField
+          id="gluten-free"
+          label="Gluten free"
+          name="diet-req"
+          inputValue="gluten-free"
+          plusOne={!!props.isPlusOne}
+          isChecked={guestDietOptionsString.indexOf('gluten-free') > 0}
+          handleChange={(e) => handleDietOptions(e)}
         />
-        <label htmlFor={`gluten-free${props.isPlusOne ? '-plus-one' : ''}`}>
-          Gluten free
-        </label>
-        <input
-          id={`dairy-free${props.isPlusOne ? '-plus-one' : ''}`}
-          type="checkbox"
-          name={`diet-req${props.isPlusOne ? '-plus-one' : ''}`}
-          value="dairy-free"
-          onChange={(e) =>
-            handleDietOptions(e, props.isPlusOne ? 'plusOne' : 'guest')
-          }
+        <CheckboxField
+          id="dairy-free"
+          label="Dairy free"
+          name="diet-req"
+          inputValue="dairy-free"
+          plusOne={!!props.isPlusOne}
+          isChecked={guestDietOptionsString.indexOf('dairy-free') > 0}
+          handleChange={(e) => handleDietOptions(e)}
         />
-        <label htmlFor={`dairy-free${props.isPlusOne ? '-plus-one' : ''}`}>
-          Dairy free
-        </label>
-        <input
-          id={`nuts${props.isPlusOne ? '-plus-one' : ''}`}
-          type="checkbox"
-          name={`diet-req${props.isPlusOne ? '-plus-one' : ''}`}
-          value="nuts"
-          onChange={(e) =>
-            handleDietOptions(e, props.isPlusOne ? 'plusOne' : 'guest')
-          }
+        <CheckboxField
+          id="nuts"
+          label="Nut allergy"
+          name="diet-req"
+          inputValue="nuts"
+          plusOne={!!props.isPlusOne}
+          isChecked={guestDietOptionsString.indexOf('nuts') > 0}
+          handleChange={(e) => handleDietOptions(e)}
         />
-        <label htmlFor={`nuts${props.isPlusOne ? '-plus-one' : ''}`}>
-          Nut allergy
-        </label>
-        <input
-          id={`other${props.isPlusOne ? '-plus-one' : ''}`}
-          type="checkbox"
-          name={`diet-req${props.isPlusOne ? '-plus-one' : ''}`}
-          value="other"
-          onChange={(e) =>
-            handleDietOptions(e, props.isPlusOne ? 'plusOne' : 'guest')
-          }
+        <CheckboxField
+          id="other"
+          label="Other"
+          name="diet-req"
+          inputValue="other"
+          isChecked={guestDietOptionsString.indexOf('other') > 0}
+          plusOne={!!props.isPlusOne}
+          handleChange={(e) => handleDietOptions(e)}
         />
-        <label htmlFor={`other${props.isPlusOne ? '-plus-one' : ''}`}>
-          Other
-        </label>
       </div>
       {guestDietOther && (
         <>
@@ -140,6 +105,7 @@ export const DietReqForm = (props: DietReqProps) => {
             id={`diet-req-other${props.isPlusOne ? '-plus-one' : ''}`}
             placeholder="Enter any dietary requirements here..."
             className="text-input"
+            defaultValue={props.previousOptionsOther}
           />
         </>
       )}

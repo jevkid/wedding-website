@@ -1,6 +1,9 @@
+import { RadioField } from './formElements/radio';
+
 interface MealProps {
   guestName: string;
   isPlusOne?: boolean;
+  previousOption?: string;
 }
 
 export const MealForm = (props: MealProps) => {
@@ -8,24 +11,21 @@ export const MealForm = (props: MealProps) => {
     <div>
       <h3 className="subtitle">{props.guestName}</h3>
       <div className="checkbox__container">
-        <input
-          id={`chicken${props.isPlusOne ? '-plus-one' : ''}`}
-          type="radio"
-          name={`diet-req${props.isPlusOne ? '-plus-one' : ''}`}
-          value="chicken"
+        <RadioField
+          id="chicken"
+          label="Chicken"
+          name="meal-choice"
+          inputValue="chicken"
+          plusOne={!!props.isPlusOne}
         />
-        <label htmlFor={`chicken${props.isPlusOne ? '-plus-one' : ''}`}>
-          Chicken
-        </label>
-        <input
-          id={`veggie${props.isPlusOne ? '-plus-one' : ''}`}
-          type="radio"
-          name={`diet-req${props.isPlusOne ? '-plus-one' : ''}`}
-          value="veggie"
+        <p className="input-divider">or</p>
+        <RadioField
+          id="veggie"
+          label="Veggie"
+          name="meal-choice"
+          inputValue="veggie"
+          plusOne={!!props.isPlusOne}
         />
-        <label htmlFor={`veggie${props.isPlusOne ? '-plus-one' : ''}`}>
-          Veggie
-        </label>
       </div>
     </div>
   );

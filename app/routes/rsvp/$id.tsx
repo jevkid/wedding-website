@@ -11,6 +11,8 @@ import React from 'react';
 import { DietReqForm } from '~/components/dietRequirements';
 import { MealForm } from '~/components/meals';
 import { AccomForm } from '~/components/accommodation';
+import { RadioField } from '~/components/formElements/radio';
+import { GuestsModel } from '~/types';
 
 export let loader = async ({ params }: any) => {
   invariant(params.id, 'expected params.id');
@@ -24,8 +26,8 @@ export let action = async ({ request }: any) => {
   const rsvp = formData.get('rsvp');
   const diet = formData.get('dietary-req');
   const dietOther = formData.get('dietary-req-other');
-  const meal = formData.get('meal');
-  const accom = formData.get('accom');
+  const meal = formData.get('meal-choice');
+  const accom = formData.get('accom-req');
   const notes = formData.get('notes');
 
   // Plus one data
@@ -33,9 +35,9 @@ export let action = async ({ request }: any) => {
   const rsvpPlusOne = formData.get('rsvp-plus-one');
   const dietPlusOne = formData.get('dietary-req-plus-one');
   const dietOtherPlusOne = formData.get('dietary-req-other-plus-one');
-  const mealPlusOne = formData.get('meal-plus-one');
-  const accomPlusOne = formData.get('accom-plus-one');
-  const notesPlusOne = formData.get('notes-plus-one');
+  const mealPlusOne = formData.get('meal-choice-plus-one');
+  const accomPlusOne = formData.get('accom-req');
+  const notesPlusOne = formData.get('notes');
 
   let errors: { name?: boolean; slug?: boolean } = {};
 
@@ -63,7 +65,8 @@ export let action = async ({ request }: any) => {
 };
 
 export default function NewGuest() {
-  const { guest, plusOne } = useLoaderData();
+  const { guest, plusOne }: { guest: GuestsModel; plusOne: GuestsModel } =
+    useLoaderData();
   let errors = useActionData();
   let transition = useTransition();
   const lastStep = 4;
@@ -84,24 +87,24 @@ export default function NewGuest() {
           <input type="hidden" name="guestId" value={guest.id} />
           <h1 className="title">{guest?.guest_name}</h1>
           <div className="checkbox__container">
-            <input
+            <RadioField
               id="yes"
-              type="radio"
               name="rsvp"
-              value="yes"
-              defaultChecked={guest.rsvp === 'yes'}
-              onChange={() => setGuestAttending(true)}
+              label="Attending"
+              inputValue="yes"
+              isChecked={guest.rsvp === 'yes'}
+              plusOne={false}
+              handleChange={() => setGuestAttending(true)}
             />
-            <label htmlFor="yes">Attending</label>
-            <input
+            <RadioField
               id="no"
-              type="radio"
               name="rsvp"
-              value="no"
-              defaultChecked={guest.rsvp === 'no'}
-              onChange={() => setGuestAttending(false)}
+              inputValue="no"
+              label="Unable to attend"
+              isChecked={guest.rsvp === 'no'}
+              plusOne={false}
+              handleChange={() => setGuestAttending(false)}
             />
-            <label htmlFor="no">Unable to attend</label>
           </div>
         </div>
 
@@ -110,24 +113,24 @@ export default function NewGuest() {
             <input type="hidden" name="plusOneId" value={plusOne.id} />
             <h1 className="title">{plusOne?.guest_name}</h1>
             <div className="checkbox__container">
-              <input
-                id="yes-plus-one"
-                type="radio"
-                name="rsvp-plus-one"
-                value="yes"
-                defaultChecked={plusOne.rsvp === 'yes'}
-                onChange={() => setPlusOneAttending(true)}
+              <RadioField
+                id="yes"
+                name="rsvp"
+                label="Attending"
+                inputValue="yes"
+                isChecked={plusOne.rsvp === 'yes'}
+                plusOne={true}
+                handleChange={() => setPlusOneAttending(true)}
               />
-              <label htmlFor="yes-plus-one">Attending</label>
-              <input
-                id="no-plus-one"
-                type="radio"
-                name="rsvp-plus-one"
-                value="no"
-                defaultChecked={plusOne.rsvp === 'no'}
-                onChange={() => setPlusOneAttending(false)}
+              <RadioField
+                id="no"
+                name="rsvp"
+                inputValue="no"
+                label="Unable to attend"
+                isChecked={plusOne.rsvp === 'no'}
+                plusOne={true}
+                handleChange={() => setPlusOneAttending(false)}
               />
-              <label htmlFor="no-plus-one">Unable to attend</label>
             </div>
           </div>
         )}
@@ -135,9 +138,18 @@ export default function NewGuest() {
       {/* 1. Dietary restrictions */}
       <div className={`diet__form${step !== 1 ? '--hidden' : ''}`}>
         <h1 className="section-title">Dietary restrictions</h1>
-        {guestAttending && <DietReqForm guestName={guest.guest_name} />}
+        {guestAttending && (
+          <DietReqForm
+            guestName={guest.guest_name}
+            previousOptions={guest.dietary_req}
+          />
+        )}
         {plusOneAttending && (
-          <DietReqForm guestName={plusOne.guest_name} isPlusOne={true} />
+          <DietReqForm
+            guestName={plusOne.guest_name}
+            isPlusOne={true}
+            previousOptions={plusOne.dietary_req}
+          />
         )}
       </div>
       {/* 2. Meal choice */}
