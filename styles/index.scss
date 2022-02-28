@@ -28,6 +28,9 @@ html, body {
   margin: 0;
   font-family: var(--font-body);
   background-color: $background;
+  background-image: url("https://live.staticflickr.com/65535/51909472553_8973b581d7_4k.jpg");
+  background-position: bottom;
+  background-size: cover;
 }
 
 .app__container {
@@ -62,12 +65,12 @@ html, body {
 
 hr.divider {
   border-bottom: 1px solid $tertiary;
-  width: 75%;
+  width: 55%;
   margin-top: 12px;
   margin-bottom: 24px;
 }
 
-// "https://live.staticflickr.com/65535/51888561432_0b10cfe56e_h.jpg"
+// https://live.staticflickr.com/65535/51909472553_8973b581d7_4k.jpg
 
 .app__main {
   display: flex;
@@ -76,8 +79,8 @@ hr.divider {
   width: 100%;
   height: 100%;
   &--hero {
-    width: 705px;
-    height: 530px;
+    width: 1000px;
+    height: 645px;
     background-image: url("https://live.staticflickr.com/65535/51889526211_839a4c13b6_3k.jpg");
     background-size: cover;
     border-radius: $borderRadius;
@@ -86,11 +89,11 @@ hr.divider {
 
 .app__navigation--list {
   display: flex;
-  justify-content: space-evenly;
-  padding: 0 100px;
+  margin: 0 auto;
   .navLink {
     color: $linkColor;
     text-decoration: none;
+    margin: 0 60px;
     &:hover {
       color: $linkHover;
       cursor: pointer;
@@ -110,6 +113,10 @@ input {
   width: 225px;
   &::placeholder {
     color: $fontColor;
+  }
+  &[type="textarea"] {
+    width: 325px;
+    height: 60px;
   }
 }
 

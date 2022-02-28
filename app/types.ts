@@ -3,7 +3,6 @@ export interface GuestsModel {
   accom_req: string;
   dietary_req: string;
   dietary_req_other: string;
-  group: boolean;
   guest_name: string;
   invite_code: string;
   meal_choice: string;

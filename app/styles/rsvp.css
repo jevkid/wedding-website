@@ -7,7 +7,10 @@ html, body {
   height: 100%;
   margin: 0;
   font-family: var(--font-body);
-  background-color: #d7ddd8; }
+  background-color: #d7ddd8;
+  background-image: url("https://live.staticflickr.com/65535/51909472553_8973b581d7_4k.jpg");
+  background-position: bottom;
+  background-size: cover; }
 
 .app__container {
   display: flex;
@@ -37,7 +40,7 @@ html, body {
 
 hr.divider {
   border-bottom: 1px solid #788371;
-  width: 75%;
+  width: 55%;
   margin-top: 12px;
   margin-bottom: 24px; }
 
@@ -48,19 +51,19 @@ hr.divider {
   width: 100%;
   height: 100%; }
   .app__main--hero {
-    width: 705px;
-    height: 530px;
+    width: 1000px;
+    height: 645px;
     background-image: url("https://live.staticflickr.com/65535/51889526211_839a4c13b6_3k.jpg");
     background-size: cover;
     border-radius: 4px; }
 
 .app__navigation--list {
   display: flex;
-  justify-content: space-evenly;
-  padding: 0 100px; }
+  margin: 0 auto; }
   .app__navigation--list .navLink {
     color: #314846;
-    text-decoration: none; }
+    text-decoration: none;
+    margin: 0 60px; }
     .app__navigation--list .navLink:hover {
       color: #A4B4A7;
       cursor: pointer; }
@@ -77,6 +80,9 @@ input {
   width: 225px; }
   input::placeholder {
     color: #314846; }
+  input[type="textarea"] {
+    width: 325px;
+    height: 60px; }
 
 button {
   background-color: #C7956D;

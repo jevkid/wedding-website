@@ -13,7 +13,6 @@ model guests {
   accom_req         String
   dietary_req       String
   dietary_req_other String
-  group             Boolean
   guest_name        String
   invite_code       String
   meal_choice       String

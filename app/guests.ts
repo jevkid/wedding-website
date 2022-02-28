@@ -21,7 +21,7 @@ export async function getGuestById(id: string) {
     }
   });
 
-  if (guest?.group && guest.plus_one) {
+  if (guest?.plus_one) {
     plusOne = await prisma.guests.findFirst({
       where: {
         guest_name: guest.plus_one
