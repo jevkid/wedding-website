@@ -35,7 +35,52 @@ export const meta: MetaFunction = () => {
 function Layout({ children }: LayoutProps) {
   return (
     <div className="app__container">
-      <div className="app__titleContainer">
+      <div className="navbar">
+        <div className="app__navigation--mobile">
+          <input className="nav-checkbox" type="checkbox" name="" id="" />
+          <div className="hamburger-menu">
+            <span className="hamburger-menu__line hamburger-menu__line--line1"></span>
+            <span className="hamburger-menu__line hamburger-menu__line--line2"></span>
+            <span className="hamburger-menu__line hamburger-menu__line--line3"></span>
+          </div>
+          <div className="logo">
+            <h1>Megan &amp; Simon</h1>
+          </div>
+          <div className="hamburger-menu__items">
+            <li>
+              <a className="navLink" href="/">
+                Home
+              </a>
+            </li>
+            <li>
+              <a className="navLink" href="/rsvp">
+                RSVP
+              </a>
+            </li>
+            <li>
+              <a className="navLink" href="/travel">
+                Travel
+              </a>
+            </li>
+            <li>
+              <a className="navLink" href="/travel">
+                Schedule
+              </a>
+            </li>
+            <li>
+              <a className="navLink" href="/travel">
+                Registry
+              </a>
+            </li>
+          </div>
+        </div>
+      </div>
+      <div className="app__titleContainer--mobile">
+        <h3 className="app__titleContainer--subtitle">
+          {format(date, 'MMMM do, yyyy')} &middot; {venue.city}, {venue.country}
+        </h3>
+      </div>
+      <div className="app__titleContainer--desktop">
         <h1 className="app__titleContainer--title">Megan &amp; Simon</h1>
         <h3 className="app__titleContainer--subtitle">
           {format(date, 'MMMM do, yyyy')} &middot; {venue.city}, {venue.country}
@@ -44,26 +89,28 @@ function Layout({ children }: LayoutProps) {
           {formatDistanceStrict(date, new Date(), { unit: 'day' })} to go
         </h3>
       </div>
-      <div className="app__navigation--list">
-        <Link className="navLink" to="/">
-          Home
-        </Link>
-        <Link className="navLink" to="/rsvp">
-          RSVP
-        </Link>
-        <Link className="navLink" to="/travel">
-          Travel
-        </Link>
-        <Link className="navLink" to="/travel">
-          Things to do
-        </Link>
-        <Link className="navLink" to="/travel">
-          Schedule
-        </Link>
-        <Link className="navLink" to="/travel">
-          Registry
-        </Link>
-      </div>
+      <nav>
+        <div className="app__navigation--desktop">
+          <Link className="navLink" to="/">
+            Home
+          </Link>
+          <Link className="navLink" to="/rsvp">
+            RSVP
+          </Link>
+          <Link className="navLink" to="/travel">
+            Travel
+          </Link>
+          <Link className="navLink" to="/travel">
+            Things to do
+          </Link>
+          <Link className="navLink" to="/travel">
+            Schedule
+          </Link>
+          <Link className="navLink" to="/travel">
+            Registry
+          </Link>
+        </div>
+      </nav>
       <hr className="divider" />
       {children}
     </div>
@@ -133,7 +180,10 @@ function Document({ children, title }: DocumentProps) {
     <html lang="en">
       <head>
         <meta charSet="utf-8" />
-        <meta name="viewport" content="width=device-width,initial-scale=1" />
+        <meta
+          name="viewport"
+          content="width=device-width, initial-scale=1, shrink-to-fit=no"
+        ></meta>
         {title ? <title>{title}</title> : null}
         <Meta />
         <Links />
