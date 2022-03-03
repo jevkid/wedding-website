@@ -10,7 +10,7 @@ interface DietReqProps {
 
 export const DietReqForm = (props: DietReqProps) => {
   const [guestDietOther, showGuestDietOther] = React.useState(
-    props.previousOptions && props.previousOptions.indexOf('other') > 0
+    props.previousOptions && props.previousOptions.indexOf('other') > -1
   );
   const [guestDietOptions, setGuestDietOptions] = React.useState<string[]>([]);
   const [guestDietOptionsString, setGuestDietOptionsString] =
@@ -52,7 +52,7 @@ export const DietReqForm = (props: DietReqProps) => {
           name="diet-req"
           inputValue="vegan"
           plusOne={!!props.isPlusOne}
-          isChecked={guestDietOptionsString.indexOf('vegan') > 0}
+          isChecked={guestDietOptionsString.indexOf('vegan') > -1}
           handleChange={(e) => handleDietOptions(e)}
         />
         <CheckboxField
@@ -61,7 +61,7 @@ export const DietReqForm = (props: DietReqProps) => {
           name="diet-req"
           inputValue="gluten-free"
           plusOne={!!props.isPlusOne}
-          isChecked={guestDietOptionsString.indexOf('gluten-free') > 0}
+          isChecked={guestDietOptionsString.indexOf('gluten-free') > -1}
           handleChange={(e) => handleDietOptions(e)}
         />
         <CheckboxField
@@ -70,7 +70,7 @@ export const DietReqForm = (props: DietReqProps) => {
           name="diet-req"
           inputValue="dairy-free"
           plusOne={!!props.isPlusOne}
-          isChecked={guestDietOptionsString.indexOf('dairy-free') > 0}
+          isChecked={guestDietOptionsString.indexOf('dairy-free') > -1}
           handleChange={(e) => handleDietOptions(e)}
         />
         <CheckboxField
@@ -79,7 +79,7 @@ export const DietReqForm = (props: DietReqProps) => {
           name="diet-req"
           inputValue="nuts"
           plusOne={!!props.isPlusOne}
-          isChecked={guestDietOptionsString.indexOf('nuts') > 0}
+          isChecked={guestDietOptionsString.indexOf('nuts') > -1}
           handleChange={(e) => handleDietOptions(e)}
         />
         <CheckboxField
@@ -87,7 +87,7 @@ export const DietReqForm = (props: DietReqProps) => {
           label="Other"
           name="diet-req"
           inputValue="other"
-          isChecked={guestDietOptionsString.indexOf('other') > 0}
+          isChecked={guestDietOptionsString.indexOf('other') > -1}
           plusOne={!!props.isPlusOne}
           handleChange={(e) => handleDietOptions(e)}
         />

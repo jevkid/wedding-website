@@ -6,7 +6,9 @@
   align-items: center;
   max-width: calc(1248px);
   margin: 0 auto;
-
+  @media only screen and (max-width: $mobile) {
+    max-width: 320px;
+  }
   form {
     text-align: center;
   }
@@ -15,6 +17,9 @@
     color: $fontColor;
   }
 
+  .success {
+    text-align: center;
+  }
 }
 
 .rsvp__invites {
@@ -22,8 +27,14 @@
   align-items: center;
   justify-content: center;
   margin: 32px 0;
+  @media only screen and (max-width: $mobile) {
+    flex-direction: column;
+  }
   .input-divider {
     margin: 0 8px;
+    @media only screen and (max-width: $mobile) {
+      margin: 4px 0;
+    }
   }
 }
 
@@ -31,6 +42,10 @@
   display: flex;
   width: 500px;
   justify-content: space-between;
+  @media only screen and (max-width: $mobile) {
+    max-width: 320px;
+    flex-direction: column;
+  }
 }
 
 .guest__form, .plusOne__form {
@@ -71,6 +86,10 @@
     border-radius: $borderRadius;
     padding: 10px 20px;
     margin: 8px;
+    @media only screen and (max-width: $mobile) {
+      padding: 10px 16px;
+      font-size: 16px;
+    }
     &:hover {
       cursor: pointer;
     }
@@ -82,9 +101,26 @@
 
 .button__container {
   margin: 60px 0;
+  button {
+    margin: 0 12px;
+    font-size: 14px;
+  }
+  @media only screen and (max-width: $mobile) {
+    margin: 30px 0;
+  }
+  .previous {
+    background-color: transparent;
+    color: $wood;
+    border: 2px solid transparent;
+    &:hover {
+      // background-color: $wood;
+      // color: $background;
+      border-bottom: 2px solid $wood;
+    }
+  }
 }
 
-.diet__form, .checkbox__form, .meal__form, .accom__form, .notes__form {
+.diet__form, .checkbox__form, .meal__form, .accom__form, .notes__form, .story__form {
   &--hidden {
     display: none;
   }
@@ -98,10 +134,25 @@
     margin: 8px;
     background-color: rgba(255,255,255,0.45);
   }
+  .checkbox__container {
+    @media only screen and (max-width: $mobile) {
+      max-width: 320px;
+    flex-wrap: wrap;
+    justify-content: center;
+    }
+  }
 }
 
-.accom__form {
+.accom__form, .story__form {
   width: 750px;
+  @media only screen and (max-width: $mobile) {
+    max-width: 320px;
+    .checkbox__container {
+      max-width: 320px;
+    flex-wrap: wrap;
+    justify-content: center;
+    }
+  }
   .checkbox__container {
     justify-content: center;
   }

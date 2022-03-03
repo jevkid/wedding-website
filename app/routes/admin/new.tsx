@@ -6,6 +6,7 @@ import {
   useLoaderData,
 } from 'remix';
 import { addGuest } from '~/admin';
+import { TextArea } from '~/components/formElements/textArea';
 import { GuestsModel } from '~/types';
 
 export let action = async ({ request }: any) => {
@@ -70,12 +71,14 @@ export default function NewGuest() {
           <input type="text" id="dietary_req" name="dietary_req" />
         </div>
         <div className="admin__form--input">
-          <label htmlFor="">Diet requirements (other): </label>
-          <input type="text" id="dietary_req_other" name="dietary_req_other" />
+          <TextArea
+            id="dietary_req_other"
+            name="dietary_req_other"
+            label="Diet requirements (other):"
+          />
         </div>
         <div className="admin__form--input">
-          <label htmlFor="">Notes: </label>
-          <input type="textarea" id="notes" name="notes" />
+          <TextArea id="notes" name="notes" label="Notes:" />
         </div>
         <button type="submit">Add user</button>
       </div>

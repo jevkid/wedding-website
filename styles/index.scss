@@ -35,6 +35,7 @@ html, body {
   background-image: url("https://live.staticflickr.com/65535/51909472553_8973b581d7_4k.jpg");
   background-position: bottom;
   background-size: cover;
+  background-repeat: no-repeat;
 
   @media only screen and (max-width: $mobile) {
     background-position: top;
@@ -54,7 +55,9 @@ html, body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin: 8px 0;
+  margin: 17px 0;
+  // margin-top: 90px;
+  // margin-bottom: 15px;
   h3 {
     margin: 0;
     font-size: 18px;
@@ -105,7 +108,6 @@ hr.divider {
   margin-bottom: 24px;
   @media only screen and (max-width: $mobile) {
     margin: 0 auto;
-    margin-bottom: 24px;
   }
 }
 
@@ -123,6 +125,7 @@ hr.divider {
     background-image: url("https://live.staticflickr.com/65535/51889526211_839a4c13b6_3k.jpg");
     background-size: cover;
     border-radius: $borderRadius;
+    margin-top: 24px;
     @media only screen and (max-width: $mobile) {
       width: 350px;
       height: 255px;
@@ -133,13 +136,17 @@ hr.divider {
 .app__navigation--desktop {
   display: flex;
   margin: 0 auto;
+  justify-content: center;
   @media only screen and (max-width: $mobile) {
     display: none;
   }
   .navLink {
     color: $linkColor;
     text-decoration: none;
-    margin: 0 60px;
+    margin: 0 56px;
+    font-family: 'Josefin Slab';
+    text-transform: uppercase;
+    font-weight: bold;
     &:hover {
       color: $linkHover;
       cursor: pointer;
@@ -275,7 +282,7 @@ hr.divider {
   }
 }
 
-input {
+input, textarea {
   background-color: $background;
   color: $fontColor;
   border: 1px solid $fontColor;
@@ -288,10 +295,11 @@ input {
   &::placeholder {
     color: $fontColor;
   }
-  &[type="textarea"] {
-    width: 325px;
-    height: 60px;
-  }
+}
+
+textarea {
+  width: 225px;
+  height: 60px;
 }
 
 button {
@@ -299,11 +307,15 @@ button {
   border: 0;
   outline: 0;
   border-radius: $borderRadius;
+  border: 2px solid $wood;
   padding: 12px 24px;
   text-transform: uppercase;
-  color: $black;
+  color: $background;
   &:hover {
     cursor: pointer;
+    border: 2px solid inherit;
+    color: $wood;
+    background-color: transparent;
   }
 }
 

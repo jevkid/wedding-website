@@ -17,6 +17,7 @@ export const MealForm = (props: MealProps) => {
           name="meal-choice"
           inputValue="chicken"
           plusOne={!!props.isPlusOne}
+          isChecked={props.previousOption === 'chicken'}
         />
         <p className="input-divider">or</p>
         <RadioField
@@ -25,6 +26,7 @@ export const MealForm = (props: MealProps) => {
           name="meal-choice"
           inputValue="veggie"
           plusOne={!!props.isPlusOne}
+          isChecked={props.previousOption === 'veggie'}
         />
       </div>
     </div>

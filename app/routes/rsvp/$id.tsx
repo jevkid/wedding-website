@@ -13,6 +13,7 @@ import { MealForm } from '~/components/meals';
 import { AccomForm } from '~/components/accommodation';
 import { RadioField } from '~/components/formElements/radio';
 import { GuestsModel } from '~/types';
+import { TextArea } from '~/components/formElements/textArea';
 
 export let loader = async ({ params }: any) => {
   invariant(params.id, 'expected params.id');
@@ -69,7 +70,7 @@ export default function NewGuest() {
     useLoaderData();
   let errors = useActionData();
   let transition = useTransition();
-  const lastStep = 4;
+  const lastStep = 5;
   const [step, setStep] = React.useState(0);
   const [guestAttending, setGuestAttending] = React.useState(
     guest.rsvp === 'yes' || false
@@ -155,9 +156,18 @@ export default function NewGuest() {
       {/* 2. Meal choice */}
       <div className={`meal__form${step !== 2 ? '--hidden' : ''}`}>
         <h1 className="section-title">Meal selection</h1>
-        {guestAttending && <MealForm guestName={plusOne.guest_name} />}
+        {guestAttending && (
+          <MealForm
+            guestName={plusOne.guest_name}
+            previousOption={guest.meal_choice}
+          />
+        )}
         {plusOneAttending && (
-          <MealForm guestName={plusOne.guest_name} isPlusOne={true} />
+          <MealForm
+            guestName={plusOne.guest_name}
+            isPlusOne={true}
+            previousOption={plusOne.meal_choice}
+          />
         )}
       </div>
       {/* 3. Accommodation? */}
@@ -167,14 +177,22 @@ export default function NewGuest() {
           <AccomForm
             guestName={guest.guest_name}
             plusOneName={plusOne.guest_name}
+            previousOption={guest.accom_req}
           />
         )}
       </div>
-      {/* 4. Notes */}
-      <div className={`notes__form${step !== 4 ? '--hidden' : ''}`}>
+      {/* 4. Funny story */}
+      <div className={`story__form${step !== 4 ? '--hidden' : ''}`}>
+        <h1 className="section-title">
+          Do you have a funny story about Megan and/or Simon? A cute anecdote?
+          We'd love to hear it!
+        </h1>
+        <TextArea id="story" name="story" label="" />
+      </div>
+      {/* 5. Notes */}
+      <div className={`notes__form${step !== 5 ? '--hidden' : ''}`}>
         <h1 className="section-title">Anything else we should know?</h1>
-        <p></p>
-        {plusOne && <p>notes</p>}
+        <TextArea id="notes" name="notes" label="" />
       </div>
       {step === lastStep && (
         <div className="button__container">
@@ -183,8 +201,19 @@ export default function NewGuest() {
           </button>
         </div>
       )}
-      {step < lastStep && (
-        <div className="button__container">
+      <div className="button__container">
+        {step !== 0 && (
+          <button
+            type="button"
+            className="previous"
+            onClick={() => {
+              setStep(step - 1);
+            }}
+          >
+            &larr; Previous
+          </button>
+        )}
+        {step < lastStep && (
           <button
             type="button"
             onClick={() => {
@@ -197,10 +226,10 @@ export default function NewGuest() {
               }
             }}
           >
-            {transition.submission ? 'Searching...' : 'Continue'}
+            Continue
           </button>
-        </div>
-      )}
+        )}
+      </div>
     </Form>
   );
 }

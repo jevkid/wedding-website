@@ -23,7 +23,7 @@ export function links() {
     { rel: 'preconnect', href: 'https://fonts.googleapis.com' },
     {
       rel: 'stylesheet',
-      href: 'https://fonts.googleapis.com/css2?family=IM+Fell+Double+Pica:ital@0;1&family=Poppins:ital,wght@0,300;0,400;0,500;1,300&display=swap',
+      href: 'https://fonts.googleapis.com/css2?family=BhuTuka+Expanded+One&family=IM+Fell+Double+Pica:ital@0;1&family=Josefin+Slab:wght@200;300;500&family=Jost:wght@100;200;300&family=Poppins:ital,wght@0,300;0,400;0,500;1,300&display=swap',
     },
   ];
 }
@@ -81,11 +81,13 @@ function Layout({ children }: LayoutProps) {
         </h3>
       </div>
       <div className="app__titleContainer--desktop">
-        <h1 className="app__titleContainer--title">Megan &amp; Simon</h1>
-        <h3 className="app__titleContainer--subtitle">
+        <h1 className="app__titleContainer--desktop--title">
+          Megan &amp; Simon
+        </h1>
+        <h3 className="app__titleContainer--desktop--subtitle">
           {format(date, 'MMMM do, yyyy')} &middot; {venue.city}, {venue.country}
         </h3>
-        <h3 className="app__titleContainer--subtitle">
+        <h3 className="app__titleContainer--desktop--subtitle">
           {formatDistanceStrict(date, new Date(), { unit: 'day' })} to go
         </h3>
       </div>

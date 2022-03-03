@@ -20,7 +20,7 @@ export default function Success() {
   let transition = useTransition();
 
   return (
-    <div>
+    <div className="success">
       <h1>Success! Thanks for your RSVP {guest?.guest_name}!</h1>
     </div>
   );

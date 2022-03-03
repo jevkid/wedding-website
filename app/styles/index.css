@@ -10,7 +10,8 @@ html, body {
   background-color: #EDEDEF;
   background-image: url("https://live.staticflickr.com/65535/51909472553_8973b581d7_4k.jpg");
   background-position: bottom;
-  background-size: cover; }
+  background-size: cover;
+  background-repeat: no-repeat; }
   @media only screen and (max-width: 415px) {
     html, body {
       background-position: top;
@@ -27,7 +28,7 @@ html, body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin: 8px 0; }
+  margin: 17px 0; }
   .app__titleContainer--mobile h3 {
     margin: 0;
     font-size: 18px;
@@ -70,8 +71,7 @@ hr.divider {
   margin-bottom: 24px; }
   @media only screen and (max-width: 415px) {
     hr.divider {
-      margin: 0 auto;
-      margin-bottom: 24px; } }
+      margin: 0 auto; } }
 
 .app__main {
   display: flex;
@@ -84,7 +84,8 @@ hr.divider {
     height: 645px;
     background-image: url("https://live.staticflickr.com/65535/51889526211_839a4c13b6_3k.jpg");
     background-size: cover;
-    border-radius: 4px; }
+    border-radius: 4px;
+    margin-top: 24px; }
     @media only screen and (max-width: 415px) {
       .app__main--hero {
         width: 350px;
@@ -92,14 +93,18 @@ hr.divider {
 
 .app__navigation--desktop {
   display: flex;
-  margin: 0 auto; }
+  margin: 0 auto;
+  justify-content: center; }
   @media only screen and (max-width: 415px) {
     .app__navigation--desktop {
       display: none; } }
   .app__navigation--desktop .navLink {
     color: #314846;
     text-decoration: none;
-    margin: 0 60px; }
+    margin: 0 56px;
+    font-family: 'Josefin Slab';
+    text-transform: uppercase;
+    font-weight: bold; }
     .app__navigation--desktop .navLink:hover {
       color: #A4B4A7;
       cursor: pointer; }
@@ -195,7 +200,7 @@ hr.divider {
     .navbar .logo h1 {
       margin: 4px 0; }
 
-input {
+input, textarea {
   background-color: #EDEDEF;
   color: #314846;
   border: 1px solid #314846;
@@ -205,22 +210,27 @@ input {
   text-align: left;
   padding-left: 10px;
   width: 225px; }
-  input::placeholder {
+  input::placeholder, textarea::placeholder {
     color: #314846; }
-  input[type="textarea"] {
-    width: 325px;
-    height: 60px; }
+
+textarea {
+  width: 225px;
+  height: 60px; }
 
 button {
   background-color: #C7956D;
   border: 0;
   outline: 0;
   border-radius: 4px;
+  border: 2px solid #C7956D;
   padding: 12px 24px;
   text-transform: uppercase;
-  color: #333939; }
+  color: #EDEDEF; }
   button:hover {
-    cursor: pointer; }
+    cursor: pointer;
+    border: 2px solid inherit;
+    color: #C7956D;
+    background-color: transparent; }
 
 .error__container {
   display: flex;
