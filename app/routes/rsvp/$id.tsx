@@ -7,6 +7,14 @@ import {
   useLoaderData,
 } from 'remix';
 import { getGuestById, updateGuest } from '~/guests';
+import {
+  date,
+  venue,
+  arrivalTime,
+  ceremonyTime,
+  receptionTime,
+} from '../../constants';
+import { format } from 'date-fns';
 import React from 'react';
 import { DietReqForm } from '~/components/dietRequirements';
 import { MealForm } from '~/components/meals';
@@ -82,8 +90,20 @@ export default function NewGuest() {
   return (
     <Form method="post">
       {/* 0. RSVP */}
+      <div className="rsvp__details">
+        <p>
+          We would love for you to join us in the celebration of our marriage on{' '}
+          <span>{format(date, 'MMMM do, yyyy')}</span> at{' '}
+          <span>{venue.venueName}.</span>{' '}
+        </p>
+        <p>
+          Guests to arrive at <span>{format(arrivalTime, 'h:mmaa')}</span>- the
+          ceremony will begin at <span>{format(ceremonyTime, 'h:mmaa')}</span>,
+          followed by dinner, drinks, and dancing. Carriages at{' '}
+          <span>midnight</span>.
+        </p>
+      </div>
       <div className={`guest__form--rsvp${step !== 0 ? '--hidden' : ''}`}>
-        <h1 className="section-title">RSVP</h1>
         <div className="rsvp__form">
           <input type="hidden" name="guestId" value={guest.id} />
           <h1 className="title">{guest?.guest_name}</h1>
@@ -194,13 +214,6 @@ export default function NewGuest() {
         <h1 className="section-title">Anything else we should know?</h1>
         <TextArea id="notes" name="notes" label="" />
       </div>
-      {step === lastStep && (
-        <div className="button__container">
-          <button type="submit" disabled={step !== lastStep}>
-            {transition.submission ? 'Submitting...' : 'Submit'}
-          </button>
-        </div>
-      )}
       <div className="button__container">
         {step !== 0 && (
           <button
@@ -211,6 +224,11 @@ export default function NewGuest() {
             }}
           >
             &larr; Previous
+          </button>
+        )}
+        {step === lastStep && (
+          <button type="submit" disabled={step !== lastStep}>
+            {transition.submission ? 'Submitting...' : 'Submit'}
           </button>
         )}
         {step < lastStep && (

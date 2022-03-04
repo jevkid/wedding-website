@@ -8,10 +8,11 @@ export function links() {
 export default function Index() {
   return (
     <div className="app__main">
+      <Link to="rsvp" className="app__seal">
+        <span className="app__seal--text">RSVP</span>
+      </Link>
       <div className="app__main--hero"></div>
-      <div className="app__main--info">
-        <Link to="rsvp">RSVP here</Link>
-      </div>
+      <div className="app__main--info"></div>
     </div>
   );
 }

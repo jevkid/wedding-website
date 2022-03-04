@@ -1,0 +1,76 @@
+$black: #333939;
+$rose: rgb(167, 121, 111);
+$roseLight: rgba(167, 121, 111, 0.5);
+$roseDark: rgb(135, 97, 90);
+$cream: rgb(226, 209, 187);
+$creamLight: rgb(233, 220, 203);
+$tropic: rgb(60, 82, 72);
+$sage: rgb(159, 159, 117);
+$sageDark: rgb(124, 124, 92);
+
+$borderRadius: 4px;
+
+$desktop: 1200px;
+$tablet: 720px;
+$mobile: 415px;
+
+:root {
+  --font-body: 'Poppins', 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  // --font-display: 'IM Fell Double Pica', serif, var(--font-body);
+  // --font-display: 'Josefin Slab', serif, var(--font-body);
+  --font-display: 'Poppins', serif, var(--font-body);
+}
+
+input, textarea {
+  background-color: $cream;
+  color: $black;
+  border: 1px solid $black;
+  outline: 0;
+  border-radius: $borderRadius;
+  padding: 12px 24px;
+  text-align: left;
+  padding-left: 10px;
+  width: 225px;
+  &::placeholder {
+    color: $black;
+  }
+}
+
+textarea {
+  width: 225px;
+  height: 60px;
+}
+
+button {
+  background-color: $rose;
+  border: 0;
+  outline: 0;
+  border-radius: $borderRadius;
+  border: 2px solid $rose;
+  padding: 12px 24px;
+  text-transform: uppercase;
+  color: $cream;
+  font-family: 'Josefin Slab';
+  font-size: 16px;
+  margin: 0 12px;
+  font-weight: bold;
+  &:hover {
+    cursor: pointer;
+    border: 2px solid $roseDark;
+    color: $cream;
+    background-color: $roseDark;
+  }
+}
+
+
+.error__container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0px auto;
+  max-width: calc(1248px);
+  padding: 42px 24px;
+  @media only screen and (max-width: $mobile) {
+    max-width: 320px;
+  }
+}
