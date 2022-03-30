@@ -38,7 +38,7 @@ function Layout({ children }: LayoutProps) {
   return (
     <div className="app__container">
       <div className="app__container--left">
-        <div className="app__navbar">
+        <nav className="app__navbar">
           <div className="app__navigation--mobile">
             <input className="nav-checkbox" type="checkbox" name="" id="" />
             <div className="hamburger-menu">
@@ -77,8 +77,8 @@ function Layout({ children }: LayoutProps) {
               </li>
             </div>
           </div>
-        </div>
-        <div className="app__navigation--desktop">
+        </nav>
+        <nav className="app__navigation--desktop">
           <Link className="app__navigation--link" to="/">
             Home
           </Link>
@@ -94,7 +94,7 @@ function Layout({ children }: LayoutProps) {
           <Link className="app__navigation--link" to="/registry">
             Registry
           </Link>
-        </div>
+        </nav>
         <div className="app__titleContainer">
           <h1 className="app__titleContainer--title">
             Megan &amp; <br />
@@ -181,6 +181,7 @@ function Document({ children, title }: DocumentProps) {
           name="viewport"
           content="width=device-width, initial-scale=1, shrink-to-fit=no"
         ></meta>
+        {/* <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBQQPaLKPwR7CR3Z7JOB0JcNYckZsaqSq4&libraries=places"></script> */}
         {title ? <title>{title}</title> : null}
         <Meta />
         <Links />

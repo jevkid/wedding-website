@@ -24,6 +24,18 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+    .radioContainer {
+      display: flex;
+      &--option {
+        display: flex;
+        flex-direction: row-reverse;
+        align-items: center;
+        input[type="radio"] {
+          padding: 0;
+          width: 30px;
+        }
+      }
+    }
   }
   label {
     margin: 0 12px;

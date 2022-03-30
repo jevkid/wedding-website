@@ -1,4 +1,4 @@
-import { Outlet } from 'remix';
+import { Places } from '~/components/maps/custom/places';
 import styles from '../styles/travel.css';
 
 export function links() {
@@ -8,12 +8,13 @@ export function links() {
 export default function Travel() {
   return (
     <div className="travel__container">
-      <h1 className="travel__title">Travel</h1>
-      <h4>How to get here, places to see, where to stay</h4>
-      <main>
-        {/* Outlet renders the /travel/index.jsx */}
-        <Outlet />
-      </main>
+      <h1 className="travel__title">Travel & Things to do</h1>
+      {/* <Places /> */}
+      <h3>Getting to Cardiff</h3>
+      <h3>Getting to the venue</h3>
+      <h3>Accommodation</h3>
+      <h3>Activities, attractions, and things to do</h3>
+      <h3>Getting around</h3>
     </div>
   );
 }

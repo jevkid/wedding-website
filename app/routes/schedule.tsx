@@ -10,8 +10,8 @@ export default function Schedule() {
     <div className="schedule__container">
       <h1 className="schedule__title">Order of Events</h1>
       <p>
-        While no one can be sure exactly what time things will start, below is
-        an estimated schedule of events for your convenience.
+        While no one can be sure <i>exactly</i> what the day will hold, below is
+        an estimated schedule of events for your information.
       </p>
       <h4>Arrival</h4>
       <p>Guests to arrive, have a drink on us, and take their seats!</p>

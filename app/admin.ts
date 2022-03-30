@@ -2,36 +2,39 @@ import { PrismaClient } from "@prisma/client";
 import { findGuestByName } from "./guests";
 
 const prisma = new PrismaClient();
-
-export async function addGuest(guest_name: string, invite_code: string, rsvp?: string, plus_one?: string, diet_req?: string, diet_req_other?: string, meal_choice?: string, accom_req?: string, notes?: string) {
+// guestName, inviteCode, plusOne, eveOnly, emptyPlusOne, rsvp
+export async function addGuest(guest_name: string, invite_code: string, plus_one: string, eve_only: boolean, empty_plus_one?: boolean) {
   await prisma.$connect();
 
   await prisma.guests.create({
     data: {
-      accom_req: accom_req || '',
-      dietary_req: diet_req || '',
-      dietary_req_other: diet_req_other || '',
+      accom_req: '',
+      dietary_req: '',
+      dietary_req_other: '',
       guest_name: guest_name || '',
       invite_code: invite_code || '',
-      meal_choice: meal_choice || '',
+      meal_choice:'',
       plus_one: plus_one || '',
-      notes: notes || '',
-      rsvp: rsvp || '',
+      notes: '',
+      rsvp: '',
+      eve_only: eve_only,
+      empty_plus_one: empty_plus_one || false
     }
   });
 
   if (plus_one) {
     await prisma.guests.create({
       data: {
-        accom_req: accom_req || '',
-        dietary_req: diet_req || '',
-        dietary_req_other: diet_req_other || '',
+        accom_req: '',
+        dietary_req: '',
+        dietary_req_other: '',
         guest_name: plus_one || '',
         invite_code: invite_code || '',
-        meal_choice: meal_choice || '',
+        meal_choice: '',
         plus_one: guest_name || '',
-        notes: notes || '',
-        rsvp: rsvp || '',
+        notes: '',
+        rsvp: '',
+        eve_only: eve_only
       }
     });
   }

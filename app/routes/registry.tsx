@@ -9,7 +9,7 @@ export default function Registry() {
   return (
     <div className="registry__container">
       <h1 className="registry__title">Registry</h1>
-      <h4>How to get here, places to see, where to stay</h4>
+      <h4>Nice way to say that no gifts are required</h4>
       <main>
         <Outlet />
       </main>

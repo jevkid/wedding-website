@@ -8,7 +8,25 @@ $tropic: rgb(60, 82, 72);
 $sage: rgb(159, 159, 117);
 $sageDark: rgb(124, 124, 92);
 
+$terracotta: #dc9c7b;
+$terracottaDark: #B26C48;
+$rust: #b67b6a;
+$grey: #e2d2c8;
+$sageGreen: #c0d3c7;
+$sageGreenDark: #86a090;
+$fern: #8e967f;
+$creamy: #f2e9dc;
+$creamyLight: #f8f0e5;
+
 $borderRadius: 4px;
+
+$primary: $fern;
+$secondary: $sageGreen;
+$secondaryDark: $sageGreenDark;
+$tertiary: $terracotta;
+
+$background: $creamy;
+$backgroundLight: $creamyLight;
 
 $desktop: 1200px;
 $tablet: 720px;
@@ -22,7 +40,7 @@ $mobile: 415px;
 }
 
 input, textarea {
-  background-color: $cream;
+  background-color: $background;
   color: $black;
   border: 1px solid $black;
   outline: 0;
@@ -42,14 +60,14 @@ textarea {
 }
 
 button {
-  background-color: $rose;
+  background-color: $tertiary;
   border: 0;
   outline: 0;
   border-radius: $borderRadius;
-  border: 2px solid $rose;
+  border: 2px solid $tertiary;
   padding: 12px 24px;
   text-transform: uppercase;
-  color: $cream;
+  color: $background;
   font-family: 'Josefin Slab';
   font-size: 16px;
   margin: 0 12px;
@@ -57,7 +75,7 @@ button {
   &:hover {
     cursor: pointer;
     border: 2px solid $roseDark;
-    color: $cream;
+    color: $background;
     background-color: $roseDark;
   }
 }

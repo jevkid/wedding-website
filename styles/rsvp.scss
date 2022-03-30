@@ -23,7 +23,7 @@
 
 .rsvp__title {
   font-size: 32px;
-  color: $tropic;
+  color: $primary;
 }
 
 .rsvp__details {
@@ -38,7 +38,7 @@
 
     span {
       font-weight: bold;
-      color: $tropic;
+      color: $primary;
     }
   }
 
@@ -48,7 +48,7 @@
 
     h4 {
       font-weight: bold;
-      color: $rose;
+      color: $tertiary;
       margin: 0;
     }
 
@@ -79,8 +79,18 @@
 
 .rsvp__form {
   display: flex;
-  width: 500px;
+  width: 600px;
   justify-content: space-between;
+
+  &--plusOne {
+    height: 30px;
+    align-self: center;
+    padding: 8px;
+    &::placeholder {
+      font-size: 14px;
+      font-style: italic;
+    }
+  }
 
   @media only screen and (max-width: $mobile) {
     max-width: 320px;
@@ -89,7 +99,7 @@
 }
 
 .section-title {
-  color: $rose;
+  color: $tertiary;
   font-size: 28px;
   margin: 0;
   padding-bottom: 16px;
@@ -125,11 +135,19 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  &--course {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  h4, h5 {
+    margin: 4px 0;
+  }
 }
 
 .diet__form {
   .text-input {
-    border: 2px solid $sage;
+    border: 2px solid $secondary;
     border-radius: $borderRadius;
     padding: 10px 20px;
     margin: 8px;
@@ -165,7 +183,7 @@
 }
 
 .subtitle {
-  color: $tropic;
+  color: $primary;
 }
 
 .checkbox__container {
@@ -182,20 +200,20 @@
     width: 0;
 
     &:checked + label {
-      background-color: $sage;
+      background-color: $secondary;
     }
 
     &:hover + label {
         cursor: pointer;
-        border: 2px solid $sageDark;
-        background-color: $sageDark;
-        color: $cream;
+        border: 2px solid $secondaryDark;
+        background-color: $secondaryDark;
+        color: $background;
     }
   }
 
   label {
     display: inline-block;
-    border: 2px solid $sage;
+    border: 2px solid $secondary;
     border-radius: $borderRadius;
     padding: 10px 20px;
     margin: 8px;
@@ -207,9 +225,9 @@
 
     &:hover {
       cursor: pointer;
-      border: 2px solid $sageDark;
-      background-color: $sageDark;
-      color: $cream;
+      border: 2px solid $secondaryDark;
+      background-color: $secondaryDark;
+      color: $background;
     }
   }
 }
@@ -223,11 +241,11 @@
 
   .previous {
     background-color: transparent;
-    color: $rose;
+    color: $tertiary;
     border: 2px solid transparent;
 
     &:hover {
-      border-bottom: 2px solid $rose;
+      border-bottom: 2px solid $tertiary;
     }
   }
 }
