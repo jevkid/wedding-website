@@ -1,163 +1,158 @@
-$black: #333939;
-$forest: #314846;
-$sage: #788371;
-$eucalyptus: #A4B4A7;
-$eucalyptusLight: #d7ddd8;
-$wood: #C7956D;
+@import './common.scss';
 
-$primary: $forest;
-$secondary: $eucalyptusLight;
-$tertiary: $sage;
-
-$background: #EDEDEF;
-$fontColor: $primary;
-
-$linkColor: $primary;
-$linkHover: $eucalyptus;
-
-$borderRadius: 4px;
-
-$desktop: 1200px;
-$tablet: 720px;
-$mobile: 415px;
-
-:root {
-  --font-body: 'Poppins', 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-  --font-display: 'IM Fell Double Pica', serif, var(--font-body);
+html {
+  height: 100%;
 }
 
 html, body {
-  width: 100%;
-  height: 100%;
   margin: 0;
+  width: 100%;
   font-family: var(--font-body);
-  background-color: $background;
-  background-image: url("https://live.staticflickr.com/65535/51909472553_8973b581d7_4k.jpg");
-  background-position: bottom;
-  background-size: cover;
-  background-repeat: no-repeat;
+  background-color: $backgroundLight;
+}
 
-  @media only screen and (max-width: $mobile) {
-    background-position: top;
-    background-size: contain;
-    background-repeat: no-repeat;
-  }
+body {
+  // min-height: 100vh;
+  min-height: 100%;
 }
 
 .app__container {
   display: flex;
-  flex-direction: column;
   width: 100%;
   height: 100%;
-}
+  min-height: max-content;
+  position: relative;
 
-.app__titleContainer--mobile {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin: 17px 0;
-  // margin-top: 90px;
-  // margin-bottom: 15px;
-  h3 {
-    margin: 0;
-    font-size: 18px;
-    font-weight: 300;
-  }
-  &--subtitle {
-    margin: 2px 0;
-    margin-bottom: 8px;
-    color: $fontColor;
+  &--left {
+    display: flex;
+    flex-direction: column;
+    width: 40%;
+    min-height: 100vh;
+    background-color: $primary;
+    justify-content: space-between;
+    flex-grow: 1;
   }
 
-  @media only screen and (min-width: $tablet) {
-    display: none;
-  }
-}
-
-.app__titleContainer--desktop {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin: 0px auto;
-  max-width: calc(1248px);
-  padding: 42px 24px;
-  &--title {
-    font-size: 46px;
-    font-family: var(--font-display);
-    font-style: italic;
-    margin: 12px 0;
-    color: $fontColor;
-  }
-  &--subtitle {
-    font-size: 18px;
-    font-weight: 300;
-    margin: 0;
-    margin-bottom: 8px;
-    color: $fontColor;
+  &--right {
+    width: 60%;
+    min-height: 100vh;
+    flex-grow: 1;
   }
 
   @media only screen and (max-width: $mobile) {
-    display: none;
-  }
-}
+    flex-direction: column;
 
-hr.divider {
-  border-bottom: 1px solid $tertiary;
-  width: 55%;
-  margin-top: 12px;
-  margin-bottom: 24px;
-  @media only screen and (max-width: $mobile) {
-    margin: 0 auto;
-  }
-}
-
-// https://live.staticflickr.com/65535/51909472553_8973b581d7_4k.jpg
-
-.app__main {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 100%;
-  height: 100%;
-  &--hero {
-    width: 1000px;
-    height: 645px;
-    background-image: url("https://live.staticflickr.com/65535/51889526211_839a4c13b6_3k.jpg");
-    background-size: cover;
-    border-radius: $borderRadius;
-    margin-top: 24px;
-    @media only screen and (max-width: $mobile) {
-      width: 350px;
-      height: 255px;
+    &--left {
+      width: 100%;
     }
+
+    &--right {
+      width: 100%;
+      height: 100%;
+    }
+  }
+}
+
+.app__seal {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 150px;
+  height: 150px;
+  border-radius: 75px;
+  border: 2px solid $background;
+  position: absolute;
+  right: 56%;
+  top: 45%;
+  backdrop-filter: blur(10px);
+  background-color: rgba(233, 220, 203, 0.5);
+  text-decoration: none;
+
+  @media only screen and (max-width: $mobile) {
+    right: 30%;
+    top: 50%;
+    background-color: $primary;
+  }
+
+  &--text {
+    font-size: 42px;
+    color: $primary;
+    font-family: 'Josefin Slab';
+    font-weight: bold;
+    @media only screen and (max-width: $mobile) {
+      color: $background;
+    }
+  }
+
+  &:hover {
+    background-color: $background;
+  }
+}
+
+.app__titleContainer {
+  display: flex;
+  flex-direction: column;
+
+  @media only screen and (max-width: $mobile) {
+    display: none;
+  }
+
+  &--title {
+    font-size: 100px;
+    font-family: var(--font-display);
+    margin: 12px;
+    color: $background;
+  }
+
+  &--subtitle {
+    font-size: 18px;
+    font-weight: 300;
+    margin: 0;
+    margin-bottom: 8px;
+    color: $black;
+  }
+}
+
+.app__detailsContainer {
+  margin: 12px;
+
+  &--text {
+    color: $secondary;
+    font-size: 20px;
+  }
+
+  @media only screen and (max-width: $mobile) {
+    text-align: center;
   }
 }
 
 .app__navigation--desktop {
   display: flex;
-  margin: 0 auto;
-  justify-content: center;
+  justify-content: space-around;
+  padding: 12px 0;
+
   @media only screen and (max-width: $mobile) {
     display: none;
   }
-  .navLink {
-    color: $linkColor;
+
+  .app__navigation--link {
+    color: $secondary;
     text-decoration: none;
-    margin: 0 56px;
-    font-family: 'Josefin Slab';
+    font-family: var(--font-body);
     text-transform: uppercase;
     font-weight: bold;
+
     &:hover {
-      color: $linkHover;
+      color: $background;
       cursor: pointer;
+      text-decoration: underline;
     }
   }
 }
 
-.navbar {
+.app__navbar {
   width: -webkit-fill-available;
-  box-shadow: 0 1px 4px rgba(146, 161, 176, 15%);
-  background-color: rgba(237, 237, 239, 0.6);
+
   @media only screen and (min-width: $tablet) {
     display: none;
   }
@@ -181,7 +176,7 @@ hr.divider {
 
       &__items {
         display: flex;
-        background-color: $background;
+        background-color: $backgroundLight;
         padding-top: 120px;
         height: 100vh;
         width: 100%;
@@ -204,7 +199,7 @@ hr.divider {
         height: 4px;
         width: 100%;
         border-radius: 10px;
-        background: #0e2431;
+        background: $tertiary;
 
         &--line1 {
           transform-origin: 0% 0%;
@@ -240,7 +235,7 @@ hr.divider {
 
     a {
      text-decoration: none;
-     color: #0e2431;
+     color: $primary;
      font-weight: 500;
      font-size: 1.2rem;
      padding: 0.7rem;
@@ -254,6 +249,7 @@ hr.divider {
       .hamburger-menu__line--line1 {
         transform: rotate(45deg);
       }
+
       .hamburger-menu__line--line2 {
         transform: scaleY(0);
       }
@@ -269,65 +265,43 @@ hr.divider {
   }
 
   .logo {
-    font-size: 20px;
+    font-size: 16px;
     font-family: var(--font-display);
-    font-style: italic;
-    color: $fontColor;
+    color: $background;
     position: absolute;
     right: 15px;
-    color: #0e2431;
+
     h1 {
       margin: 4px 0;
     }
   }
 }
 
-input, textarea {
-  background-color: $background;
-  color: $fontColor;
-  border: 1px solid $fontColor;
-  outline: 0;
-  border-radius: $borderRadius;
-  padding: 12px 24px;
-  text-align: left;
-  padding-left: 10px;
-  width: 225px;
-  &::placeholder {
-    color: $fontColor;
-  }
-}
-
-textarea {
-  width: 225px;
-  height: 60px;
-}
-
-button {
-  background-color: $wood;
-  border: 0;
-  outline: 0;
-  border-radius: $borderRadius;
-  border: 2px solid $wood;
-  padding: 12px 24px;
-  text-transform: uppercase;
-  color: $background;
-  &:hover {
-    cursor: pointer;
-    border: 2px solid inherit;
-    color: $wood;
-    background-color: transparent;
-  }
-}
-
-
-.error__container {
+.app__main {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin: 0px auto;
-  max-width: calc(1248px);
-  padding: 42px 24px;
-  @media only screen and (max-width: $mobile) {
-    max-width: 320px;
+  width: 100%;
+  height: 100%;
+
+  &--hero {
+    width: 100%;
+    height: 100%;
+    background-image: url("https://live.staticflickr.com/65535/51889526211_839a4c13b6_3k.jpg");
+    background-size: cover;
+
+    @media only screen and (max-width: $mobile) {
+      width: 100%;
+      height: 255px;
+    }
   }
+}
+
+.app__footer {
+  display: flex;
+  height: 40px;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  background-color: $secondary;
 }

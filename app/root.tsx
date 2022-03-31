@@ -7,11 +7,13 @@ import {
   Scripts,
   ScrollRestoration,
   useCatch,
+  useOutletContext,
 } from 'remix';
 import type { MetaFunction } from 'remix';
 import { date, venue } from './constants';
 import { format, formatDistanceStrict } from 'date-fns';
 import styles from './styles/index.css';
+import { Route } from 'react-router';
 
 interface LayoutProps {
   children: any;
@@ -35,86 +37,79 @@ export const meta: MetaFunction = () => {
 function Layout({ children }: LayoutProps) {
   return (
     <div className="app__container">
-      <div className="navbar">
-        <div className="app__navigation--mobile">
-          <input className="nav-checkbox" type="checkbox" name="" id="" />
-          <div className="hamburger-menu">
-            <span className="hamburger-menu__line hamburger-menu__line--line1"></span>
-            <span className="hamburger-menu__line hamburger-menu__line--line2"></span>
-            <span className="hamburger-menu__line hamburger-menu__line--line3"></span>
+      <div className="app__container--left">
+        <nav className="app__navbar">
+          <div className="app__navigation--mobile">
+            <input className="nav-checkbox" type="checkbox" name="" id="" />
+            <div className="hamburger-menu">
+              <span className="hamburger-menu__line hamburger-menu__line--line1"></span>
+              <span className="hamburger-menu__line hamburger-menu__line--line2"></span>
+              <span className="hamburger-menu__line hamburger-menu__line--line3"></span>
+            </div>
+            <div className="logo">
+              <h1>Megan &amp; Simon</h1>
+            </div>
+            <div className="hamburger-menu__items">
+              <li>
+                <a className="app__navigation--link" href="/">
+                  Home
+                </a>
+              </li>
+              <li>
+                <a className="app__navigation--link" href="/rsvp">
+                  RSVP
+                </a>
+              </li>
+              <li>
+                <a className="app__navigation--link" href="/travel">
+                  Travel &amp; things to do
+                </a>
+              </li>
+              <li>
+                <a className="app__navigation--link" href="/schedule">
+                  Schedule
+                </a>
+              </li>
+              <li>
+                <a className="app__navigation--link" href="/registry">
+                  Registry
+                </a>
+              </li>
+            </div>
           </div>
-          <div className="logo">
-            <h1>Megan &amp; Simon</h1>
-          </div>
-          <div className="hamburger-menu__items">
-            <li>
-              <a className="navLink" href="/">
-                Home
-              </a>
-            </li>
-            <li>
-              <a className="navLink" href="/rsvp">
-                RSVP
-              </a>
-            </li>
-            <li>
-              <a className="navLink" href="/travel">
-                Travel
-              </a>
-            </li>
-            <li>
-              <a className="navLink" href="/travel">
-                Schedule
-              </a>
-            </li>
-            <li>
-              <a className="navLink" href="/travel">
-                Registry
-              </a>
-            </li>
-          </div>
-        </div>
-      </div>
-      <div className="app__titleContainer--mobile">
-        <h3 className="app__titleContainer--subtitle">
-          {format(date, 'MMMM do, yyyy')} &middot; {venue.city}, {venue.country}
-        </h3>
-      </div>
-      <div className="app__titleContainer--desktop">
-        <h1 className="app__titleContainer--desktop--title">
-          Megan &amp; Simon
-        </h1>
-        <h3 className="app__titleContainer--desktop--subtitle">
-          {format(date, 'MMMM do, yyyy')} &middot; {venue.city}, {venue.country}
-        </h3>
-        <h3 className="app__titleContainer--desktop--subtitle">
-          {formatDistanceStrict(date, new Date(), { unit: 'day' })} to go
-        </h3>
-      </div>
-      <nav>
-        <div className="app__navigation--desktop">
-          <Link className="navLink" to="/">
+        </nav>
+        <nav className="app__navigation--desktop">
+          <Link className="app__navigation--link" to="/">
             Home
           </Link>
-          <Link className="navLink" to="/rsvp">
+          <Link className="app__navigation--link" to="/rsvp">
             RSVP
           </Link>
-          <Link className="navLink" to="/travel">
-            Travel
+          <Link className="app__navigation--link" to="/travel">
+            Travel &amp; things to do
           </Link>
-          <Link className="navLink" to="/travel">
-            Things to do
-          </Link>
-          <Link className="navLink" to="/travel">
+          <Link className="app__navigation--link" to="/schedule">
             Schedule
           </Link>
-          <Link className="navLink" to="/travel">
+          <Link className="app__navigation--link" to="/registry">
             Registry
           </Link>
+        </nav>
+        <div className="app__titleContainer">
+          <h1 className="app__titleContainer--title">
+            Megan &amp; <br />
+            Simon
+          </h1>
         </div>
-      </nav>
-      <hr className="divider" />
-      {children}
+        <div className="app__detailsContainer">
+          <span className="app__detailsContainer--text">
+            {format(date, 'MMMM do, yyyy')} &middot; {venue.city},{' '}
+            {venue.country} &middot;{' '}
+            {formatDistanceStrict(date, new Date(), { unit: 'day' })} to go
+          </span>
+        </div>
+      </div>
+      <div className="app__container--right">{children}</div>
     </div>
   );
 }
@@ -186,6 +181,7 @@ function Document({ children, title }: DocumentProps) {
           name="viewport"
           content="width=device-width, initial-scale=1, shrink-to-fit=no"
         ></meta>
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBQQPaLKPwR7CR3Z7JOB0JcNYckZsaqSq4&libraries=places"></script>
         {title ? <title>{title}</title> : null}
         <Meta />
         <Links />

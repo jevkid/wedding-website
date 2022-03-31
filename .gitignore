@@ -5,6 +5,7 @@ node_modules
 .output
 .env
 tailwind.css
+ideas.txt
 
 public/build
 api/_build

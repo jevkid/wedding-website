@@ -13,6 +13,9 @@ model guests {
   accom_req         String
   dietary_req       String
   dietary_req_other String
+  email             String
+  empty_plus_one    Boolean
+  eve_only          Boolean
   guest_name        String
   invite_code       String
   meal_choice       String

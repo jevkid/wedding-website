@@ -1,23 +1,15 @@
-import {
-  redirect,
-  Form,
-  useActionData,
-  useTransition,
-  useLoaderData,
-} from 'remix';
+import React from 'react';
+import { redirect, Form } from 'remix';
 import { addGuest } from '~/admin';
 import { TextArea } from '~/components/formElements/textArea';
-import { GuestsModel } from '~/types';
 
 export let action = async ({ request }: any) => {
   let formData = await request.formData();
   const guestName = formData.get('guest_name');
-  const rsvp = formData.get('rsvp');
-  const diet = formData.get('dietary-req');
-  const dietOther = formData.get('dietary-req-other');
-  const meal = formData.get('meal-choice');
-  const accom = formData.get('accom-req');
-  const notes = formData.get('notes');
+  const plusOne = formData.get('plus_one');
+  const inviteCode = formData.get('invite_code');
+  const eveOnly = formData.get('eve_only');
+  const emptyPlusOne = formData.get('empty_plus_one');
 
   let errors: { name?: boolean; slug?: boolean } = {};
 
@@ -27,58 +19,107 @@ export let action = async ({ request }: any) => {
     return errors;
   }
 
-  await addGuest(guestName, rsvp, diet, dietOther, meal, accom, notes);
+  await addGuest(
+    guestName,
+    inviteCode,
+    plusOne,
+    eveOnly === 'yes',
+    emptyPlusOne === 'yes'
+  );
 
   return redirect(`/admin`);
 };
 
-// accom_req: guest.accom_req || '',
-// dietary_req: guest.dietary_req || '',
-// dietary_req_other: guest.dietary_req_other || '',
-// group: guest.group,
-// guest_name: guest.guest_name,
-// invite_code: guest.invite_code,
-// meal_choice: guest.meal_choice || '',
-// notes: guest.notes || '',
-// rsvp: guest.rsvp,
-
 export default function NewGuest() {
+  const [guestName, setGuestName] = React.useState<string>();
+  const [plusOneName, setPlusOneName] = React.useState<string>();
+  const [inviteCode, setInviteCode] = React.useState<string>();
+  const createInviteCode = () => {
+    if (guestName) {
+      const splitName = guestName.split(' ');
+      let inviteCode = '';
+      if (splitName && splitName.length > 1) {
+        inviteCode = `${splitName[0].charAt(0)}${splitName[1]}`;
+      }
+      setInviteCode(inviteCode);
+    }
+  };
+
+  const handlePlusOneName = () => {
+    // set the plus one name based on the guests name
+    setPlusOneName(`${guestName} (+1)`);
+  };
+
   return (
     <Form method="post">
       <div className="admin__form">
+        <h1>Add a guest</h1>
         <div className="admin__form--input">
           <label htmlFor="guest_name">Guest name: </label>
-          <input type="text" id="guest_name" name="guest_name" />
-        </div>
-        <div className="admin__form--input">
-          <label htmlFor="">Invite code: </label>
-          <input type="text" id="invite_code" name="invite_code" />
-        </div>
-        <div className="admin__form--input">
-          <label htmlFor="">Plus one: </label>
-          <input type="text" id="plus_one" name="plus_one" />
-        </div>
-        <div className="admin__form--input">
-          <label htmlFor="">RSVP: </label>
-          <input type="text" id="rsvp" name="rsvp" />
-        </div>
-        <div className="admin__form--input">
-          <label htmlFor="">Meal choice: </label>
-          <input type="text" id="meal_choice" name="meal_choice" />
-        </div>
-        <div className="admin__form--input">
-          <label htmlFor="">Diet requirements: </label>
-          <input type="text" id="dietary_req" name="dietary_req" />
-        </div>
-        <div className="admin__form--input">
-          <TextArea
-            id="dietary_req_other"
-            name="dietary_req_other"
-            label="Diet requirements (other):"
+          <input
+            type="text"
+            id="guest_name"
+            name="guest_name"
+            onChange={(e) => setGuestName(e.target.value)}
           />
         </div>
         <div className="admin__form--input">
-          <TextArea id="notes" name="notes" label="Notes:" />
+          <label htmlFor="">Invite code: </label>
+          <input
+            type="text"
+            id="invite_code"
+            name="invite_code"
+            value={inviteCode}
+            onFocus={() => createInviteCode()}
+          />
+        </div>
+        <div className="admin__form--input">
+          <p>Empty plus one?</p>
+          <div className="radioContainer">
+            <div className="radioContainer--option">
+              <input
+                type="radio"
+                id="empty_plus_one_yes"
+                name="empty_plus_one"
+                value="yes"
+                onChange={() => {
+                  handlePlusOneName();
+                }}
+              />
+              <label htmlFor="empty_plus_one_yes">Yes: </label>
+            </div>
+            <div className="radioContainer--option">
+              <input
+                type="radio"
+                id="empty_plus_one_no"
+                name="empty_plus_one"
+                value="no"
+              />
+              <label htmlFor="empty_plus_one_no">No: </label>
+            </div>
+          </div>
+        </div>
+        <div className="admin__form--input">
+          <label htmlFor="">Plus one: </label>
+          <input
+            type="text"
+            id="plus_one"
+            name="plus_one"
+            value={plusOneName}
+          />
+        </div>
+        <div className="admin__form--input">
+          <p>Evening only?</p>
+          <div className="radioContainer">
+            <div className="radioContainer--option">
+              <input type="radio" id="rsvp_yes" name="eve_only" value="yes" />
+              <label htmlFor="eve_only_yes">Yes: </label>
+            </div>
+            <div className="radioContainer--option">
+              <input type="radio" id="eve_only_no" name="eve_only" value="no" />
+              <label htmlFor="eve_only_no">No: </label>
+            </div>
+          </div>
         </div>
         <button type="submit">Add user</button>
       </div>

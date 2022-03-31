@@ -7,6 +7,17 @@ import {
   useLoaderData,
 } from 'remix';
 import { getGuestById, updateGuest } from '~/guests';
+import {
+  date,
+  venue,
+  arrivalTime,
+  ceremonyTime,
+  receptionTime,
+  starters,
+  mains,
+  desserts,
+} from '../../constants';
+import { format } from 'date-fns';
 import React from 'react';
 import { DietReqForm } from '~/components/dietRequirements';
 import { MealForm } from '~/components/meals';
@@ -23,13 +34,16 @@ export let loader = async ({ params }: any) => {
 export let action = async ({ request }: any) => {
   let formData = await request.formData();
   // Guest data
-  const guestId = formData.get('guestId');
+  const guestId = formData.get('guest_id');
+  const guestName = formData.get('guest_name');
+  const plusOneName = formData.get('plus_one_name');
   const rsvp = formData.get('rsvp');
   const diet = formData.get('dietary-req');
   const dietOther = formData.get('dietary-req-other');
   const meal = formData.get('meal-choice');
   const accom = formData.get('accom-req');
-  const notes = formData.get('notes');
+  const email = formData.get('email');
+  const emptyPlusOne = formData.get('empty_plus_one');
 
   // Plus one data
   const plusOneId = formData.get('plusOneId');
@@ -38,7 +52,6 @@ export let action = async ({ request }: any) => {
   const dietOtherPlusOne = formData.get('dietary-req-other-plus-one');
   const mealPlusOne = formData.get('meal-choice-plus-one');
   const accomPlusOne = formData.get('accom-req');
-  const notesPlusOne = formData.get('notes');
 
   let errors: { name?: boolean; slug?: boolean } = {};
 
@@ -48,17 +61,28 @@ export let action = async ({ request }: any) => {
     return errors;
   }
 
-  await updateGuest(guestId, rsvp, diet, dietOther, meal, accom, notes);
+  await updateGuest(
+    guestId,
+    guestName,
+    rsvp,
+    diet,
+    dietOther,
+    meal,
+    accom,
+    plusOneName,
+    email,
+    emptyPlusOne === ''
+  );
 
   if (plusOneId) {
     await updateGuest(
       plusOneId,
+      plusOneName,
       rsvpPlusOne,
       dietPlusOne,
       dietOtherPlusOne,
       mealPlusOne,
-      accomPlusOne,
-      notesPlusOne
+      accomPlusOne
     );
   }
 
@@ -78,15 +102,31 @@ export default function NewGuest() {
   const [plusOneAttending, setPlusOneAttending] = React.useState(
     plusOne?.rsvp === 'yes' || false
   );
+  const [plusOneName, setEmptyPlusOneName] = React.useState(
+    plusOne?.guest_name || ''
+  );
 
   return (
     <Form method="post">
       {/* 0. RSVP */}
+      <div className="rsvp__details">
+        <p>
+          We would love for you to join us in the celebration of our marriage on{' '}
+          <span>{format(date, 'MMMM do, yyyy')}</span> at{' '}
+          <span>{venue.venueName}.</span>{' '}
+        </p>
+        <p>
+          Guests to arrive at <span>{format(arrivalTime, 'h:mmaa')}</span>- the
+          ceremony will begin at <span>{format(ceremonyTime, 'h:mmaa')}</span>,
+          followed by dinner, drinks, and dancing. Carriages at{' '}
+          <span>midnight</span>.
+        </p>
+      </div>
       <div className={`guest__form--rsvp${step !== 0 ? '--hidden' : ''}`}>
-        <h1 className="section-title">RSVP</h1>
         <div className="rsvp__form">
-          <input type="hidden" name="guestId" value={guest.id} />
-          <h1 className="title">{guest?.guest_name}</h1>
+          <input type="hidden" name="guest_id" value={guest.id} />
+          <input type="hidden" name="guest_name" value={guest.guest_name} />
+          <h1 className="title">{guest.guest_name}</h1>
           <div className="checkbox__container">
             <RadioField
               id="yes"
@@ -112,7 +152,26 @@ export default function NewGuest() {
         {plusOne && (
           <div className="rsvp__form">
             <input type="hidden" name="plusOneId" value={plusOne.id} />
-            <h1 className="title">{plusOne?.guest_name}</h1>
+            <input
+              type="hidden"
+              name="plus_one_name"
+              value={plusOne.guest_name}
+            />
+            {plusOneAttending && guest.empty_plus_one ? (
+              <>
+                <input
+                  className="rsvp__form--plusOne"
+                  type="text"
+                  name="plus_one_name"
+                  placeholder="Plus one's full name"
+                  onChange={(e) => setEmptyPlusOneName(e.target.value)}
+                />
+                <input type="hidden" name="empty_plus_one" value="false" />
+              </>
+            ) : (
+              <h1 className="title">{plusOne?.guest_name}</h1>
+            )}
+            {/* if the empty plus one is attending, replace the h1 with a text input field to input the plus one's name */}
             <div className="checkbox__container">
               <RadioField
                 id="yes"
@@ -147,7 +206,7 @@ export default function NewGuest() {
         )}
         {plusOneAttending && (
           <DietReqForm
-            guestName={plusOne.guest_name}
+            guestName={plusOneName}
             isPlusOne={true}
             previousOptions={plusOne.dietary_req}
           />
@@ -156,17 +215,27 @@ export default function NewGuest() {
       {/* 2. Meal choice */}
       <div className={`meal__form${step !== 2 ? '--hidden' : ''}`}>
         <h1 className="section-title">Meal selection</h1>
+        <hr />
+        <h4>Starters</h4>
+        <h5>{starters.one.long}</h5>
+        <h5>{starters.two.long}</h5>
+        <h4>Mains</h4>
+        <h5>{mains.one.long}</h5>
+        <h5>{mains.two.long}</h5>
+        <h4>Desserts</h4>
+        <h5>{desserts.one.long}</h5>
+        <h5>{desserts.two.long}</h5>
         {guestAttending && (
           <MealForm
-            guestName={plusOne.guest_name}
-            previousOption={guest.meal_choice}
+            guestName={guest.guest_name}
+            previousOptions={guest.meal_choice}
           />
         )}
         {plusOneAttending && (
           <MealForm
-            guestName={plusOne.guest_name}
+            guestName={plusOneName}
             isPlusOne={true}
-            previousOption={plusOne.meal_choice}
+            previousOptions={plusOne.meal_choice}
           />
         )}
       </div>
@@ -176,7 +245,7 @@ export default function NewGuest() {
         {guestAttending && (
           <AccomForm
             guestName={guest.guest_name}
-            plusOneName={plusOne.guest_name}
+            plusOneName={plusOneName}
             previousOption={guest.accom_req}
           />
         )}
@@ -191,16 +260,19 @@ export default function NewGuest() {
       </div>
       {/* 5. Notes */}
       <div className={`notes__form${step !== 5 ? '--hidden' : ''}`}>
-        <h1 className="section-title">Anything else we should know?</h1>
-        <TextArea id="notes" name="notes" label="" />
+        <h1 className="section-title">
+          Lastly, can we have your email to send an RSVP
+        </h1>
+        <label htmlFor="email">
+          <input
+            className="input"
+            type="text"
+            name="email"
+            id="emailInput"
+            placeholder="Email address"
+          />
+        </label>
       </div>
-      {step === lastStep && (
-        <div className="button__container">
-          <button type="submit" disabled={step !== lastStep}>
-            {transition.submission ? 'Submitting...' : 'Submit'}
-          </button>
-        </div>
-      )}
       <div className="button__container">
         {step !== 0 && (
           <button
@@ -211,6 +283,11 @@ export default function NewGuest() {
             }}
           >
             &larr; Previous
+          </button>
+        )}
+        {step === lastStep && (
+          <button type="submit" disabled={step !== lastStep}>
+            {transition.submission ? 'Submitting...' : 'Submit'}
           </button>
         )}
         {step < lastStep && (

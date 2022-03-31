@@ -9,4 +9,6 @@ export interface GuestsModel {
   notes: string;
   plus_one: string;
   rsvp: string;
+  eve_only: boolean;
+  empty_plus_one?: boolean;
 }
