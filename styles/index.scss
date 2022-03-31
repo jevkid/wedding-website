@@ -27,16 +27,24 @@ body {
     display: flex;
     flex-direction: column;
     width: 40%;
-    min-height: 100vh;
     background-color: $primary;
     justify-content: space-between;
-    flex-grow: 1;
   }
 
   &--right {
     width: 60%;
-    min-height: 100vh;
-    flex-grow: 1;
+  }
+
+  @media only screen and (min-width: $tablet) {
+    &--left {
+      min-height: 100vh;
+      flex-grow: 1;
+    }
+
+    &--right {
+      min-height: 100vh;
+      flex-grow: 1;
+    }
   }
 
   @media only screen and (max-width: $mobile) {
@@ -70,7 +78,7 @@ body {
 
   @media only screen and (max-width: $mobile) {
     right: 30%;
-    top: 50%;
+    top: 85%;
     background-color: $primary;
   }
 
@@ -161,6 +169,7 @@ body {
     display: block;
     height: 62px;
     position: relative;
+    z-index: 100;
 
     .hamburger-menu {
       display: block;

@@ -56,11 +56,6 @@ function Layout({ children }: LayoutProps) {
                 </a>
               </li>
               <li>
-                <a className="app__navigation--link" href="/rsvp">
-                  RSVP
-                </a>
-              </li>
-              <li>
                 <a className="app__navigation--link" href="/travel">
                   Travel &amp; things to do
                 </a>
@@ -73,6 +68,11 @@ function Layout({ children }: LayoutProps) {
               <li>
                 <a className="app__navigation--link" href="/registry">
                   Registry
+                </a>
+              </li>
+              <li>
+                <a className="app__navigation--link" href="/rsvp">
+                  RSVP
                 </a>
               </li>
             </div>
@@ -181,7 +181,9 @@ function Document({ children, title }: DocumentProps) {
           name="viewport"
           content="width=device-width, initial-scale=1, shrink-to-fit=no"
         ></meta>
-        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBQQPaLKPwR7CR3Z7JOB0JcNYckZsaqSq4&libraries=places"></script>
+        <script
+          src={`https://maps.googleapis.com/maps/api/js?key=${process.env.GOOGLE_MAPS_API}&libraries=places`}
+        ></script>
         {title ? <title>{title}</title> : null}
         <Meta />
         <Links />

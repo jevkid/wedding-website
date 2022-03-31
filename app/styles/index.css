@@ -73,10 +73,12 @@ button {
     width: 5px; }
     .accordion .arrow.up {
       transform: rotate(-135deg);
-      -webkit-transform: rotate(-135deg); }
+      -webkit-transform: rotate(-135deg);
+      z-index: 1; }
     .accordion .arrow.down {
       transform: rotate(45deg);
-      -webkit-transform: rotate(45deg); }
+      -webkit-transform: rotate(45deg);
+      z-index: 1; }
 
 html {
   height: 100%; }
@@ -100,14 +102,17 @@ body {
     display: flex;
     flex-direction: column;
     width: 40%;
-    min-height: 100vh;
     background-color: #8e967f;
-    justify-content: space-between;
-    flex-grow: 1; }
+    justify-content: space-between; }
   .app__container--right {
-    width: 60%;
-    min-height: 100vh;
-    flex-grow: 1; }
+    width: 60%; }
+  @media only screen and (min-width: 720px) {
+    .app__container--left {
+      min-height: 100vh;
+      flex-grow: 1; }
+    .app__container--right {
+      min-height: 100vh;
+      flex-grow: 1; } }
   @media only screen and (max-width: 415px) {
     .app__container {
       flex-direction: column; }
@@ -134,7 +139,7 @@ body {
   @media only screen and (max-width: 415px) {
     .app__seal {
       right: 30%;
-      top: 50%;
+      top: 85%;
       background-color: #8e967f; } }
   .app__seal--text {
     font-size: 42px;
@@ -200,7 +205,8 @@ body {
   .app__navbar .app__navigation--mobile {
     display: block;
     height: 62px;
-    position: relative; }
+    position: relative;
+    z-index: 100; }
     .app__navbar .app__navigation--mobile .hamburger-menu {
       display: block;
       height: 26px;
