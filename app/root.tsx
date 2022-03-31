@@ -181,7 +181,7 @@ function Document({ children, title }: DocumentProps) {
           name="viewport"
           content="width=device-width, initial-scale=1, shrink-to-fit=no"
         ></meta>
-        {/* <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBQQPaLKPwR7CR3Z7JOB0JcNYckZsaqSq4&libraries=places"></script> */}
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBQQPaLKPwR7CR3Z7JOB0JcNYckZsaqSq4&libraries=places"></script>
         {title ? <title>{title}</title> : null}
         <Meta />
         <Links />

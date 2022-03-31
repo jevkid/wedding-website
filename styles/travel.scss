@@ -4,6 +4,7 @@
   align-items: center;
   max-width: calc(1248px);
   margin: 0 auto;
+  padding: 0 46px;
 }
 
 .neighbourhood__container {
@@ -20,8 +21,8 @@
 }
 
 .map {
-  height: 550px;
-  width: 900px;
+  height: 450px;
+  width: 700px;
 }
 
 .maps__marker {
@@ -38,6 +39,20 @@
   cursor: 'pointer';
   &:hover {
     z-index: 1;
+  }
+}
+
+.info-window {
+  display: flex;
+  flex-direction: column;
+  .content {
+    display: flex;
+    .description {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin: 0 12px;
+    }
   }
 }
 

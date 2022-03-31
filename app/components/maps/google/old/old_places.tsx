@@ -10,7 +10,7 @@ export const Places = () => {
     if (document && mapEl) {
       initMap(mapEl);
     }
-  });
+  }, []);
 
   const createMarker = (place: google.maps.places.PlaceResult) => {
     if (!place.geometry || !place.geometry.location) return;
@@ -21,8 +21,11 @@ export const Places = () => {
     });
 
     google.maps.event.addListener(marker, 'click', () => {
-      infowindow.setContent(place.name || '');
-      infowindow.open(map);
+      infowindow.open({
+        anchor: marker,
+        map,
+        shouldFocus: false,
+      });
     });
   };
 
@@ -39,7 +42,7 @@ export const Places = () => {
     const request = {
       location: cardiff,
       radius: 500,
-      type: ['restaurant', 'hotel'],
+      type: 'hotel',
     };
 
     service = new google.maps.places.PlacesService(map);
