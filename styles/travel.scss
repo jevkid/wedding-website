@@ -1,3 +1,5 @@
+@import './common.scss';
+
 .travel__container {
   display: flex;
   flex-direction: column;
@@ -23,6 +25,10 @@
 .map {
   height: 450px;
   width: 700px;
+  @media only screen and (max-width: $mobile) {
+    height: 250px;
+    width: 300px;
+  }
 }
 
 .maps__marker {

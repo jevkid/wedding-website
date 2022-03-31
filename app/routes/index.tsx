@@ -8,9 +8,9 @@ export function links() {
 export default function Index() {
   return (
     <div className="app__main">
-      <Link to="rsvp" className="app__seal">
+      <a href="/rsvp" className="app__seal">
         <span className="app__seal--text">RSVP</span>
-      </Link>
+      </a>
       <div className="app__main--hero"></div>
       <div className="app__main--info"></div>
     </div>

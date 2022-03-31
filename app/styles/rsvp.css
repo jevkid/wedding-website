@@ -73,10 +73,12 @@ button {
     width: 5px; }
     .accordion .arrow.up {
       transform: rotate(-135deg);
-      -webkit-transform: rotate(-135deg); }
+      -webkit-transform: rotate(-135deg);
+      z-index: 1; }
     .accordion .arrow.down {
       transform: rotate(45deg);
-      -webkit-transform: rotate(45deg); }
+      -webkit-transform: rotate(45deg);
+      z-index: 1; }
 
 .rsvp__container {
   display: flex;
@@ -178,6 +180,14 @@ button {
     align-items: center; }
   .meal__form h4, .meal__form h5 {
     margin: 4px 0; }
+  @media only screen and (max-width: 415px) {
+    .meal__form .checkbox__container {
+      flex-direction: column;
+      max-width: 320px;
+      flex-wrap: wrap;
+      justify-content: center; }
+      .meal__form .checkbox__container p {
+        margin: 0; } }
 
 .diet__form .text-input {
   border: 2px solid #c0d3c7;

@@ -122,10 +122,12 @@ button {
     &.up {
       transform: rotate(-135deg);
       -webkit-transform: rotate(-135deg);
+      z-index: 1;
     }
     &.down {
       transform: rotate(45deg);
       -webkit-transform: rotate(45deg);
+      z-index: 1;
     }
   }
 }
