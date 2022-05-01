@@ -8,15 +8,15 @@ $tropic: rgb(60, 82, 72);
 $sage: rgb(159, 159, 117);
 $sageDark: rgb(124, 124, 92);
 
-$terracotta: #dc9c7b;
-$terracottaDark: #B26C48;
-$rust: #b67b6a;
-$grey: #e2d2c8;
-$sageGreen: #c0d3c7;
-$sageGreenDark: #86a090;
-$fern: #8e967f;
-$creamy: #f2e9dc;
-$creamyLight: #f8f0e5;
+$terracotta: rgb(220, 156, 123);
+$terracottaDark: rgb(178, 108, 72);
+$rust: rgb(182, 123, 106);
+$grey: rgb(226, 210, 200);
+$sageGreen: rgb(192, 211, 199);
+$sageGreenDark: rgb(134, 160, 144);
+$fern: rgb(142, 150, 127);
+$creamy: rgb(242, 233, 220);
+$creamyLight: rgb(247, 240, 230);
 
 $borderRadius: 4px;
 
@@ -119,6 +119,7 @@ button {
     padding: 3px;
     height: 5px;
     width: 5px;
+    transition: 0.5s;
     &.up {
       transform: rotate(-135deg);
       -webkit-transform: rotate(-135deg);

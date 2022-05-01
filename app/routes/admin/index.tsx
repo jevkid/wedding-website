@@ -16,7 +16,9 @@ export default function AdminIndex() {
           <h3>Invited</h3>
           <ul>
             {guests.map((guest: GuestsModel) => (
-              <li key={guest.id}>{guest.guest_name}</li>
+              <li key={guest.id}>
+                <Link to={`/admin/${guest.id}`}>{guest.guest_name}</Link>
+              </li>
             ))}
           </ul>
         </div>

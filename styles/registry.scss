@@ -2,6 +2,13 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  max-width: calc(1248px);
+  max-width: 650px;
   margin: 0 auto;
+  text-align: center;
+  h4 {
+    margin: 10px 0;
+  }
+  p {
+    margin: 10px 0;
+  }
 }

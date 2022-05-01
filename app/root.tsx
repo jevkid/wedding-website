@@ -7,6 +7,7 @@ import {
   Scripts,
   ScrollRestoration,
   useCatch,
+  useLoaderData,
   useOutletContext,
 } from 'remix';
 import type { MetaFunction } from 'remix';
@@ -33,6 +34,14 @@ export function links() {
 export const meta: MetaFunction = () => {
   return { title: 'M&S Wedding' };
 };
+
+export async function loader() {
+  return {
+    ENV: {
+      GOOGLE_MAPS_API: process.env.GOOGLE_MAPS_API,
+    },
+  };
+}
 
 function Layout({ children }: LayoutProps) {
   return (
@@ -173,6 +182,7 @@ interface DocumentProps {
 }
 
 function Document({ children, title }: DocumentProps) {
+  const data = useLoaderData();
   return (
     <html lang="en">
       <head>
@@ -182,7 +192,7 @@ function Document({ children, title }: DocumentProps) {
           content="width=device-width, initial-scale=1, shrink-to-fit=no"
         ></meta>
         <script
-          src={`https://maps.googleapis.com/maps/api/js?key=${process.env.GOOGLE_MAPS_API}&libraries=places`}
+          src={`https://maps.googleapis.com/maps/api/js?key=${data.ENV.GOOGLE_MAPS_API}&libraries=places`}
         ></script>
         {title ? <title>{title}</title> : null}
         <Meta />
