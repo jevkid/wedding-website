@@ -11,7 +11,7 @@ export default function Travel() {
   return (
     <div className="travel__container">
       <h1 className="travel__title">Travel & Things to do</h1>
-      <Accordion title="Getting to the venue">
+      <Accordion title="Getting to the venue" maxHeight={645}>
         <p>
           Llechwen Hall Hotel is situated upon Mount Llanfabon and is
           approximately a 20 minute drive from junction 32 of the M4 motorway.
@@ -30,10 +30,10 @@ export default function Travel() {
           centre={{ lat: 51.641327116818566, lng: -3.308188930345505 }}
         />
       </Accordion>
-      <Accordion title="Accommodation">
+      <Accordion title="Accommodation" maxHeight={434}>
         <Places mapId="map-1" places={hotels} />
       </Accordion>
-      <Accordion title="Getting to Cardiff from abroad">
+      <Accordion title="Getting to Cardiff from abroad" maxHeight={675}>
         <h4>Fly into London Heathrow (LHR)</h4>
         <p>
           Flying into Heathrow is <i>usually</i> the cheapest option, but will
@@ -112,10 +112,13 @@ export default function Travel() {
         </p>
       </Accordion>
 
-      <Accordion title="Activities, attractions, and things to do">
+      <Accordion
+        title="Activities, attractions, and things to do"
+        maxHeight={475}
+      >
         <Places mapId="map-2" places={attractions} zoom={12} />
       </Accordion>
-      <Accordion title="Getting around">
+      <Accordion title="Getting around" maxHeight={130}>
         <p>
           Cardiff is easy to get around- there are buses, trains, and hire bikes
           to take you wherever you need to go, and most areas of central Cardiff

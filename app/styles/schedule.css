@@ -99,7 +99,6 @@ button {
   margin: 50px auto;
   padding: 40px 0;
   width: 1000px;
-  height: 100%;
   box-sizing: border-box; }
   .timeline::before {
     content: '';
@@ -167,6 +166,8 @@ button {
           box-shadow: 0 0 0 3px rgba(178, 108, 72, 0.3); }
       .timeline ul li .description {
         padding-bottom: 20px; }
+        .timeline ul li .description img {
+          width: 50px; }
         .timeline ul li .description h3 {
           padding: 0;
           margin: 0;
@@ -207,3 +208,15 @@ button {
           top: -30px;
           left: 50px;
           right: inherit; } }
+
+.attributes {
+  display: flex;
+  position: absolute;
+  font-size: 8px;
+  bottom: 0;
+  margin: 24px 0; }
+  .attributes__credit {
+    margin: 0 12px; }
+  @media (min-width: 767px) {
+    .attributes {
+      bottom: -45px; } }

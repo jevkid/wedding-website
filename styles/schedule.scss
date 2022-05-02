@@ -23,7 +23,6 @@
   margin: 50px auto;
   padding: 40px 0;
   width: 1000px;
-  height: 100%;
   box-sizing: border-box;
 
   &::before {
@@ -45,6 +44,7 @@
       width: 50%;
       padding: 20px 40px;
       box-sizing: border-box;
+
       &:nth-child(odd) {
         float: left;
         text-align: right;
@@ -105,6 +105,9 @@
 
       .description {
         padding-bottom: 20px;
+        img {
+          width: 50px;
+        }
         h3 {
           padding: 0;
           margin: 0;
@@ -165,5 +168,19 @@
         }
       }
     }
+  }
+}
+
+.attributes {
+  display: flex;
+  position: absolute;
+  font-size: 8px;
+  bottom: 0;
+  margin: 24px 0;
+  &__credit {
+    margin: 0 12px;
+  }
+  @media (min-width: 767px){
+    bottom: -45px;
   }
 }

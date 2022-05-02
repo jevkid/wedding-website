@@ -103,8 +103,7 @@ body {
     display: flex;
     flex-direction: column;
     width: 40%;
-    background-color: #8e967f;
-    justify-content: space-between; }
+    background-color: #8e967f; }
   .app__container--right {
     width: 60%; }
   @media only screen and (min-width: 720px) {
