@@ -1,3 +1,4 @@
+import * as React from 'react';
 import { Places } from '~/components/maps/google/places';
 import styles from '../styles/travel.css';
 import { hotels, attractions, venueLocation } from '~/constants';
@@ -8,10 +9,28 @@ export function links() {
 }
 
 export default function Travel() {
+  const [isMobile, setIsMobile] = React.useState(false);
+  const handleResize = () => {
+    if (screen && screen.width) {
+      console.log(screen.width);
+      if (screen.width > 475) {
+        setIsMobile(false);
+      } else {
+        setIsMobile(true);
+      }
+    }
+  };
+  React.useEffect(() => {
+    window.addEventListener('resize', handleResize);
+    handleResize();
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
   return (
     <div className="travel__container">
       <h1 className="travel__title">Travel & Things to do</h1>
-      <Accordion title="Getting to the venue" maxHeight={645}>
+      <Accordion title="Getting to the venue" maxHeight={isMobile ? 658 : 645}>
         <p>
           Llechwen Hall Hotel is situated upon Mount Llanfabon and is
           approximately a 20 minute drive from junction 32 of the M4 motorway.
@@ -30,10 +49,13 @@ export default function Travel() {
           centre={{ lat: 51.641327116818566, lng: -3.308188930345505 }}
         />
       </Accordion>
-      <Accordion title="Accommodation" maxHeight={434}>
+      <Accordion title="Accommodation" maxHeight={isMobile ? 330 : 434}>
         <Places mapId="map-1" places={hotels} />
       </Accordion>
-      <Accordion title="Getting to Cardiff from abroad" maxHeight={675}>
+      <Accordion
+        title="Getting to Cardiff from abroad"
+        maxHeight={isMobile ? 1350 : 675}
+      >
         <h4>Fly into London Heathrow (LHR)</h4>
         <p>
           Flying into Heathrow is <i>usually</i> the cheapest option, but will
@@ -114,11 +136,11 @@ export default function Travel() {
 
       <Accordion
         title="Activities, attractions, and things to do"
-        maxHeight={475}
+        maxHeight={isMobile ? 275 : 475}
       >
         <Places mapId="map-2" places={attractions} zoom={12} />
       </Accordion>
-      <Accordion title="Getting around" maxHeight={130}>
+      <Accordion title="Getting around" maxHeight={isMobile ? 192 : 130}>
         <p>
           Cardiff is easy to get around- there are buses, trains, and hire bikes
           to take you wherever you need to go, and most areas of central Cardiff
